@@ -2,14 +2,16 @@ import "bootstrap/dist/css/bootstrap.css";
 import { createApp } from 'vue';
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import fontawesome from './fontawesome.js'
+import router from './router.js';
+import store from './store/index.js';
 import App from './App.vue';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHatCowboy } from '@fortawesome/free-solid-svg-icons';
-
-library.add(faHatCowboy);
-
 const app = createApp(App);
+
+app.use(router);
+app.use(fontawesome);
+app.use(store);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 

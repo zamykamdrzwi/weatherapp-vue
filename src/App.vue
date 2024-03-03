@@ -3,3 +3,7 @@
     <font-awesome-icon :icon="['fas', 'hat-cowboy']" />
   </div>
 </template>
+
+<script>
+
+</script>
