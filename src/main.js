@@ -1,4 +1,18 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import "bootstrap/dist/css/bootstrap.css";
+import { createApp } from 'vue';
 
-createApp(App).mount('#app')
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import App from './App.vue';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHatCowboy } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faHatCowboy);
+
+const app = createApp(App);
+
+app.component('font-awesome-icon', FontAwesomeIcon);
+
+app.mount('#app');
+
+import "bootstrap/dist/js/bootstrap.js";
