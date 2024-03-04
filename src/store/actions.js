@@ -1,8 +1,8 @@
 export default {
-  async takeCurrentWeather(context) {
+  async takeCurrentWeather(context, payload) {
+    //console.log(`Zmienna: ${payload.units}`)
     const API = '19de70c141fa4749dd0305edb2cd82a9';
-    const city = 'Gdynia';
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}`);
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${payload.city}&units=${payload.units}&appid=${API}`);
     const responseData = await response.json();
 
     if(!response.ok) {
