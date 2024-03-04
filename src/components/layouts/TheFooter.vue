@@ -1,3 +1,11 @@
 <template>
-  <div>Footer</div>
+  <footer class="footer">Footer</footer>
 </template>
+
+<style lang="scss" scoped>
+@import '../../assets/style/style.scss';
+.footer {
+  position: absolute;
+  bottom: 0;
+}
+</style>

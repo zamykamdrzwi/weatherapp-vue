@@ -1,3 +1,5 @@
 <template>
-  <div>The Weather</div>
+  <div class="container">
+    
+  </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <the-header></the-header>
-  <router-view></router-view>
+  <router-view class="mt-6"></router-view>
   <the-footer></the-footer>
 </template>
 
@@ -16,7 +16,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import './assets/style/style.scss';
 body {
   margin: 0;
 }
