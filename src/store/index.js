@@ -7,7 +7,7 @@ import getters from './getters.js';
 const store = createStore({
   state() {
     return {
-
+      currentWeather: null
     };
   },
   mutations,
