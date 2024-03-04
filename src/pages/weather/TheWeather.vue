@@ -5,13 +5,20 @@
         <label for="city" class="form-label">City:</label>
         <input type="text" id="city" class="form-control shadow-none" v-model="city">
         <div class="mt-3">
-          <select class="form-select" v-model="units">
+          <select class="form-select shadow-none" v-model="units">
             <option value="metric">Celsius °C</option>
             <option value="imperial">Fahrenheit °F</option>
           </select>
         </div>
         <button class="btn btn-primary mt-3">Pogoda!!</button>
       </form>
+      <div v-if="formIsValid">
+        <div>{{ weather.name }}</div>
+        <div>{{ weather.main.temp }}{{ showUnit }}</div>
+      </div>
+      <div v-else>
+        <div class="text-danger">Error</div>
+      </div>
     </div>
   </div>
 </template>
@@ -21,14 +28,24 @@ export default {
   data() {
     return {
       city: 'Gdynia',
-      units: 'metric'
+      units: 'metric',
+      showUnit: '°C',
+      formIsValid: true,
+      error: null
     };
   }, 
   computed: {
-    
+    weather() {
+      return this.$store.state['currentWeather']
+    }
   },
   methods: {
     async currentWeather() {
+      this.formIsValid = true;
+      if(this.city === '') {
+        this.formIsValid = false;
+        return;
+      }
       const params = {
         city: this.city,
         units: this.units
@@ -36,11 +53,19 @@ export default {
       try {
         await this.$store.dispatch('takeCurrentWeather', params);
       } catch(error) {
-        console.log('Nie działa - comp');
+        this.error = error.message || 'Something failed!';
       }
       const weather = this.$store.state['currentWeather'];
+      if(params.units === 'metric') {
+        this.showUnit = '°C'
+      } else {
+        this.showUnit = '°F'
+      }
       console.log(weather);
     }
   },
+  created() {
+    this.currentWeather()
+  }
 }
 </script>
