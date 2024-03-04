@@ -3,7 +3,8 @@
 </template>
 
 <style lang="scss" scoped>
-$color: red;
+@import '../../assets/style/test.scss';
+// $color: red;
 .hello {
   color: $color;
 }
