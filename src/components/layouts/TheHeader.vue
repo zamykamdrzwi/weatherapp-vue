@@ -32,6 +32,10 @@
 </template>
 
 <style lang="scss" scoped>
-/* @import '../../assets/style/style.scss';*/
-
+.navbar {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  // font-weight: <weight>;
+  font-style: normal;
+}
 </style>

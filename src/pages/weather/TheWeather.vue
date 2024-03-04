@@ -3,7 +3,8 @@
     <div class="row">
       <form @submit.prevent="currentWeather" class="col-6">
         <label for="city" class="form-label">City:</label>
-        <input type="text" id="city" class="form-control shadow-none" v-model="city">
+        <input type="text" id="city" class="form-control shadow-none" 
+        :class="[error ? 'error' : '']" v-model="city">
         <div class="mt-3">
           <select class="form-select shadow-none" v-model="units">
             <option value="metric">Celsius °C</option>
@@ -12,12 +13,12 @@
         </div>
         <button class="btn btn-primary mt-3">Pogoda!!</button>
       </form>
-      <div v-if="formIsValid">
+      <div v-if="formIsValid && !error">
         <div>{{ weather.name }}</div>
         <div>{{ weather.main.temp }}{{ showUnit }}</div>
       </div>
       <div v-else>
-        <div class="text-danger">Error</div>
+        <div class="text-danger">{{ error }}</div>
       </div>
     </div>
   </div>
@@ -41,6 +42,7 @@ export default {
   },
   methods: {
     async currentWeather() {
+      this.error = null;
       this.formIsValid = true;
       if(this.city === '') {
         this.formIsValid = false;
@@ -54,6 +56,7 @@ export default {
         await this.$store.dispatch('takeCurrentWeather', params);
       } catch(error) {
         this.error = error.message || 'Something failed!';
+
       }
       const weather = this.$store.state['currentWeather'];
       if(params.units === 'metric') {
@@ -69,3 +72,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.container {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  // font-weight: <weight>;
+  font-style: normal;
+}
+.error {
+  border: 1px solid red !important;
+}
+</style>
