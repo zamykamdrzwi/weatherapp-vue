@@ -1,31 +1,41 @@
 <template>
   <div class="container">
     <div class="row">
-      <form @submit.prevent="currentWeather" class="col-6">
-        <label for="city" class="form-label">City:</label>
-        <input type="text" id="city" class="form-control shadow-none" 
-        :class="[error ? 'error' : '']" v-model="city">
-        <div class="mt-3">
-          <select class="form-select shadow-none" v-model="units">
-            <option value="metric">Celsius °C</option>
-            <option value="imperial">Fahrenheit °F</option>
-          </select>
+      <div class="col-lg-6">
+        <form @submit.prevent="currentWeather">
+          <label for="city" class="form-label">City:</label>
+          <input type="text" id="city" class="form-control shadow-none" 
+          :class="[error ? 'error' : '']" v-model="city">
+          <div class="mt-3">
+            <select class="form-select shadow-none" v-model="units">
+              <option value="metric">Celsius °C</option>
+              <option value="imperial">Fahrenheit °F</option>
+            </select>
+          </div>
+          <button class="btn btn-primary mt-3">Pogoda!!</button>
+        </form>
+        <div v-if="formIsValid && !error">
+          <div>{{ weather.name }}</div>
+          <div>{{ weather.main.temp }}{{ showUnit }}</div>
         </div>
-        <button class="btn btn-primary mt-3">Pogoda!!</button>
-      </form>
-      <div v-if="formIsValid && !error">
-        <div>{{ weather.name }}</div>
-        <div>{{ weather.main.temp }}{{ showUnit }}</div>
+        <div v-else>
+          <div class="text-danger">{{ error }}</div>
+        </div>
       </div>
-      <div v-else>
-        <div class="text-danger">{{ error }}</div>
+      <div class="col-lg-6">
+        <the-map></the-map>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import TheMap from '../../components/weather/TheMap.vue';
+
 export default {
+  components: {
+    TheMap
+  },
   data() {
     return {
       city: 'Gdynia',

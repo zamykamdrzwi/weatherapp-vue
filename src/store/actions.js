@@ -11,5 +11,5 @@ export default {
     }
 
     context.commit('setCurrentWeather', responseData);
-  }
+  },
 };
