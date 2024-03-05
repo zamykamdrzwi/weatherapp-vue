@@ -23,31 +23,31 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <the-map></the-map>
+        <div id="map"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import TheMap from '../../components/weather/TheMap.vue';
+/* global google */
+import { Loader } from '@googlemaps/js-api-loader';
+// import TheMap from '../../components/weather/TheMap.vue';
 
 export default {
-  components: {
-    TheMap
-  },
   data() {
     return {
       city: 'Gdynia',
       units: 'metric',
       showUnit: '°C',
       formIsValid: true,
-      error: null
+      error: null,
+      map: null,
     };
   }, 
   computed: {
     weather() {
-      return this.$store.state['currentWeather']
+      return this.$store.state['currentWeather'];
     }
   },
   methods: {
@@ -66,15 +66,44 @@ export default {
         await this.$store.dispatch('takeCurrentWeather', params);
       } catch(error) {
         this.error = error.message || 'Something failed!';
-
       }
-      const weather = this.$store.state['currentWeather'];
       if(params.units === 'metric') {
         this.showUnit = '°C'
       } else {
         this.showUnit = '°F'
       }
-      console.log(weather);
+      const cords = {
+        lat: this.weather.coord.lat,
+        lon: this.weather.coord.lon
+      }
+      console.log(cords)
+      this.initMap(cords)
+    },
+    initMap(coords) {
+      console.log(coords);
+      const lat = coords.lat;
+      const lon = coords.lon;
+      // console.log(`lat: ${lat}`);
+      // console.log(`lon: ${lon}`);
+      const loader = new Loader({
+        apiKey: 'AIzaSyDtc5nYAqGQBk1qGNoTbSOcGfKUR0U0tqg',
+        version: 'weekly',
+        // ...additionalOptions,
+      });
+
+      const options = {
+        zoom: 8,
+        center: { lat: lat, lng: lon }
+      }
+      
+      try {
+        loader.load().then(async () => {
+          const { Map } = await google.maps.importLibrary('maps');
+          this.map = new Map(document.querySelector('#map'), options);
+        });
+      } catch (err) {
+        console.log(`Error with Google Maps API: ${err}`);
+      }
     }
   },
   created() {
@@ -92,5 +121,9 @@ export default {
 }
 .error {
   border: 1px solid red !important;
+}
+#map {
+  height: 400px;
+  width: 100%;
 }
 </style>
