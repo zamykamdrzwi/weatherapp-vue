@@ -24,6 +24,9 @@
       </div>
       <div class="col-lg-6">
         <div id="map"></div>
+        <div class="weatherImg">
+          <img :src="weatherImg" alt="Nie dziala">
+        </div>
       </div>
     </div>
   </div>
@@ -32,7 +35,6 @@
 <script>
 /* global google */
 import { Loader } from '@googlemaps/js-api-loader';
-// import TheMap from '../../components/weather/TheMap.vue';
 
 export default {
   data() {
@@ -43,6 +45,7 @@ export default {
       formIsValid: true,
       error: null,
       map: null,
+      weatherImg: ''
     };
   }, 
   computed: {
@@ -76,11 +79,12 @@ export default {
         lat: this.weather.coord.lat,
         lon: this.weather.coord.lon
       }
-      console.log(cords)
-      this.initMap(cords)
+      //console.log(cords)
+      this.initMap(cords);
+      this.weatherMap(cords);
     },
     initMap(coords) {
-      console.log(coords);
+      //console.log(coords);
       const lat = coords.lat;
       const lon = coords.lon;
       // console.log(`lat: ${lat}`);
@@ -104,6 +108,19 @@ export default {
       } catch (err) {
         console.log(`Error with Google Maps API: ${err}`);
       }
+    },
+    async weatherMap(cords) {
+      const API = '19de70c141fa4749dd0305edb2cd82a9';
+      const layer = 'pressure_new';
+      const z = 8;
+      const x = (cords.lat * 10)/10;
+      const y = cords.lon;
+      console.log(`lat: ${x}`);
+      console.log(`lon: ${y}`);
+      const responcse = await fetch(`https://tile.openweathermap.org/map/${layer}/${z}/${x}/${y}.png?appid=${API}`);
+      const responcseImg = await responcse.blob();
+      console.log(responcseImg)
+      this.weatherImg = URL.createObjectURL(responcseImg);
     }
   },
   created() {
@@ -122,7 +139,7 @@ export default {
 .error {
   border: 1px solid red !important;
 }
-#map {
+#map, #weatherImg {
   height: 400px;
   width: 100%;
 }
