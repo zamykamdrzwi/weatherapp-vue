@@ -12,7 +12,8 @@
               <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
-              <li class="dropdown-item" v-for="item in searchHistory" :key="item">
+              <li class="dropdown-item" v-for="item in searchHistory" :key="item"
+              @click="putToSearch(item)">
                 {{ item }}
               </li>
             </ul>
@@ -66,10 +67,12 @@ export default {
     }
   },
   methods: {
+    putToSearch(value) {
+      this.city = value;
+    },
     async currentWeather() {
       this.error = null;
       this.formIsValid = true;
-      this.$store.commit('addSearchHistory', this.city);
       console.log(this.searchHistory)
       if(this.city === '') {
         this.formIsValid = false;
@@ -81,6 +84,7 @@ export default {
       }
       try {
         await this.$store.dispatch('takeCurrentWeather', params);
+        this.$store.commit('addSearchHistory', this.city);
       } catch(error) {
         this.error = error.message || 'Something failed!';
       }
