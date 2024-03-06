@@ -3,6 +3,11 @@ export default {
     state.currentWeather = payload;
   },
   addSearchHistory(state, payload) {
-    state.searchHistory.push(payload);
+    if(state.searchHistory.length < 6) {
+      state.searchHistory.push(payload);
+    } else {
+      state.searchHistory.shift();
+      state.searchHistory.push(payload);
+    }
   }
 };

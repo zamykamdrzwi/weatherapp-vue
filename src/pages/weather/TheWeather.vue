@@ -4,8 +4,19 @@
       <div class="col-lg-6">
         <form @submit.prevent="currentWeather">
           <label for="city" class="form-label">City:</label>
-          <input type="text" id="city" class="form-control shadow-none" 
-          :class="[error ? 'error' : '']" v-model="city">
+          <div class="btn-group display-flex w-100">
+            <input type="text" id="city" class="form-control shadow-none custom-input"
+            :class="[error ? 'error' : '']" v-model="city" />
+            <button class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+            data-bs-toggle="dropdown" type="button">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item" v-for="item in searchHistory" :key="item">
+                {{ item }}
+              </li>
+            </ul>
+          </div>
           <div class="mt-3">
             <select class="form-select shadow-none" v-model="units">
               <option value="metric">Celsius °C</option>
@@ -148,5 +159,9 @@ export default {
 #map {
   height: 400px;
   width: 100%;
+}
+.custom-input {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 </style>
