@@ -43,18 +43,23 @@ export default {
       error: null,
       map: null,
       weatherImg: '',
-      newMarker: null
+      newMarker: null,
     };
   }, 
   computed: {
     weather() {
       return this.$store.state['currentWeather'];
+    },
+    searchHistory() {
+      return this.$store.state['searchHistory'];
     }
   },
   methods: {
     async currentWeather() {
       this.error = null;
       this.formIsValid = true;
+      this.$store.commit('addSearchHistory', this.city);
+      console.log(this.searchHistory)
       if(this.city === '') {
         this.formIsValid = false;
         return;
@@ -75,9 +80,11 @@ export default {
       }
       const cords = {
         lat: this.weather.coord.lat,
-        lon: this.weather.coord.lon
+        lon: this.weather.coord.lon,
+        temp: this.weather.main.temp,
+        city: this.weather.name
       }
-      this.initMap(cords);
+      this.initMap(cords, );
     },
     async initMap(coords) {
       const position = { 
@@ -103,27 +110,28 @@ export default {
           this.newMarker = new google.maps.Marker({
             position: event.latLng,
             map: this.map,
-          })
+          });
           var infoWindow = new google.maps.InfoWindow({
-            content: 'cokolwiek'
-          })
+            content: 'cokokwliekk'
+          });
           console.log(infoWindow)
           this.newMarker.addListener('click', (event) => {
             infoWindow.open(this.map, this.newMarker)
             console.log(event);
-          })
+          });
         });
         let marker = new google.maps.Marker({
           position: position,
-          map: this.map
-        })
-        console.log(marker)
+          map: this.map,
+          content: `City: ${coords.city}, Temp: ${coords.temp}`
+        });
+        console.log(marker);
       });
     },
   },
   created() {
     this.currentWeather()
-  }
+  },
 }
 </script>
 

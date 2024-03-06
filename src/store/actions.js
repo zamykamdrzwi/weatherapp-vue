@@ -12,4 +12,14 @@ export default {
 
     context.commit('setCurrentWeather', responseData);
   },
+  // async initMap(contex, payload) {
+  //   const position = { 
+  //     lat: 54.5189,
+  //     lng: 18.5319
+  //   };
+  //   const options = {
+  //     zoom: 8,
+  //     center: position
+  //   };
+  // }
 };
