@@ -42,7 +42,8 @@ export default {
       formIsValid: true,
       error: null,
       map: null,
-      weatherImg: ''
+      weatherImg: '',
+      newMarker: null
     };
   }, 
   computed: {
@@ -78,28 +79,46 @@ export default {
       }
       this.initMap(cords);
     },
-    initMap(coords) {
-      const lat = coords.lat;
-      const lon = coords.lon;
-      const loader = new Loader({
-        apiKey: 'AIzaSyDtc5nYAqGQBk1qGNoTbSOcGfKUR0U0tqg',
-        version: 'weekly',
-        // ...additionalOptions,
-      });
+    async initMap(coords) {
+      const position = { 
+        lat: coords.lat, 
+        lng: coords.lon 
+      };
 
       const options = {
         zoom: 8,
-        center: { lat: lat, lng: lon }
+        center: position
       }
-      
-      try {
-        loader.load().then(async () => {
-          const { Map } = await google.maps.importLibrary('maps');
-          this.map = new Map(document.querySelector('#map'), options);
+
+      const loader = new Loader({
+        apiKey: 'AIzaSyDtc5nYAqGQBk1qGNoTbSOcGfKUR0U0tqg',
+        version: 'weekly',
+      });
+
+      loader.load().then(async () => {
+        const { Map } = await google.maps.importLibrary("maps");
+        this.map = new Map(document.getElementById("map"), {options});
+
+        google.maps.event.addListener(this.map, 'click', (event) => {
+          this.newMarker = new google.maps.Marker({
+            position: event.latLng,
+            map: this.map,
+          })
+          var infoWindow = new google.maps.InfoWindow({
+            content: 'cokolwiek'
+          })
+          console.log(infoWindow)
+          this.newMarker.addListener('click', (event) => {
+            infoWindow.open(this.map, this.newMarker)
+            console.log(event);
+          })
         });
-      } catch (err) {
-        console.log(`Error with Google Maps API: ${err}`);
-      }
+        let marker = new google.maps.Marker({
+          position: position,
+          map: this.map
+        })
+        console.log(marker)
+      });
     },
   },
   created() {
