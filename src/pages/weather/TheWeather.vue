@@ -35,6 +35,7 @@
         </div>
       </div>
       <div class="col-lg-6">
+        <label for="map" class="mb-2">Chose place from map!</label>
         <div id="map"></div>
       </div>
     </div>
@@ -54,7 +55,6 @@ export default {
       formIsValid: true,
       error: null,
       map: null,
-      weatherImg: '',
       marker: null,
     };
   }, 
@@ -122,39 +122,27 @@ export default {
         this.map = new Map(document.getElementById("map"), {options});
 
         google.maps.event.addListener(this.map, 'click', async (event) => {
+          this.marker = new google.maps.Marker({
+            position: event.latLng,
+            map: this.map,
+          });
+
+          this.marker.setMap(null)
+
+          const position = this.marker.getPosition();
+          const lat = position.lat();
+          const lon = position.lng();
+          const coords = {
+            lat: lat,
+            lon: lon
+          };
+
+          await this.weatherToMap(coords);
+
           var infoWindow = new google.maps.InfoWindow({
             content: this.city
           });
 
-          if(this.marker === null) {
-            this.marker = new google.maps.Marker({
-              position: event.latLng,
-              map: this.map,
-            });
-
-            const position = this.marker.getPosition();
-            const lat = position.lat();
-            const lon = position.lng();
-            const coords = {
-              lat: lat,
-              lon: lon
-            };
-            await this.weatherToMap(coords);
-          } else {
-            const position = this.marker.getPosition();
-            const lat = position.lat();
-            const lon = position.lng();
-            const coords = {
-              lat: lat,
-              lon: lon
-            };
-            await this.weatherToMap(coords);
-
-            this.marker.setPosition(event.latLng);
-            infoWindow.setContent(this.city);
-          }   
-
-          //console.log(infoWindow)
           this.marker.addListener('click', () => {
             infoWindow.open(this.map, this.marker)
             //console.log(event);
@@ -175,9 +163,15 @@ export default {
         this.error = error.message || 'Something failed!';
       }
 
+      if(params.units === 'metric') {
+        this.showUnit = '°C'
+      } else {
+        this.showUnit = '°F'
+      }
+
       this.city = this.weather.name;
       this.$store.commit('addSearchHistory', this.city);
-    }
+    },
   },
   created() {
     this.currentWeather()
