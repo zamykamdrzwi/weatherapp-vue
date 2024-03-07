@@ -21,5 +21,8 @@ export default {
   },
   setAdress(state, payload) {
     state.adress = payload;
+  },
+  setForecast(state, payload) {
+    state.forecast = payload;
   }
 };

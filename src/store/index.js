@@ -9,7 +9,8 @@ const store = createStore({
     return {
       currentWeather: null,
       searchHistory: [],
-      adress: null
+      adress: null,
+      forecast: null
     };
   },
   mutations,

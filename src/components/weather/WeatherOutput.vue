@@ -1,15 +1,10 @@
 <template>
-  <div>Weather output</div>
-  <button class="btn btn-secondary" @click="showWeather">Pokkaż</button>
+  <div>{{ weather.name }}</div>
+  <div>{{ weather.main.temp }}{{ showUnit }}</div>
 </template>
 
 <script>
 export default {
-  props: ['weather'],
-  methods: {
-    showWeather() {
-      console.log(this.weather);
-    }
-  }
+  props: ['weather', 'showUnit'],
 }
 </script>

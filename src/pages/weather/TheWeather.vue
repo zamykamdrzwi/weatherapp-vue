@@ -26,14 +26,13 @@
           </div>
           <button class="btn btn-primary mt-3">Pogoda!!</button>
         </form>
-        <div v-if="formIsValid && !error">
-          <div>{{ weather.name }}</div>
-          <div>{{ weather.main.temp }}{{ showUnit }}</div>
-        </div>
+        <weather-output v-if="formIsValid && !error"
+        :weather="weather"
+        :showUnit="showUnit">
+        </weather-output>
         <div v-else>
           <div class="text-danger">{{ error }}</div>
         </div>
-        <weather-output :weather="weather"></weather-output>
       </div>
       <div class="col-lg-6">
         <label for="map" class="mb-2">Chose place from map!</label>
@@ -70,6 +69,9 @@ export default {
     searchHistory() {
       return this.$store.state['searchHistory'];
     },
+    forecast() {
+      return this.$store.state['forecast'];
+    }
   },
   methods: {
     putToSearch(value) {
@@ -143,6 +145,8 @@ export default {
           };
 
           await this.weatherToMap(coords);
+          await this.$store.dispatch('takeFutureWeather', coords);
+          console.log(this.forecast);
 
           var infoWindow = new google.maps.InfoWindow({
             content: this.city
