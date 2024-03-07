@@ -33,6 +33,7 @@
         <div v-else>
           <div class="text-danger">{{ error }}</div>
         </div>
+        <weather-output :weather="weather"></weather-output>
       </div>
       <div class="col-lg-6">
         <label for="map" class="mb-2">Chose place from map!</label>
@@ -45,8 +46,12 @@
 <script>
 /* global google */
 import { Loader } from '@googlemaps/js-api-loader';
+import WeatherOutput from '../../components/weather/WeatherOutput.vue';
 
 export default {
+  components: {
+    WeatherOutput
+  },
   data() {
     return {
       city: 'Gdynia',
