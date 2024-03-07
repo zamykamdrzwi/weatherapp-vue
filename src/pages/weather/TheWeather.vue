@@ -64,7 +64,7 @@ export default {
     },
     searchHistory() {
       return this.$store.state['searchHistory'];
-    }
+    },
   },
   methods: {
     putToSearch(value) {

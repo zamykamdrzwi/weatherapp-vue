@@ -24,5 +24,17 @@ export default {
     }
 
     context.commit('setCurrentWeather', responseData);
+  },
+  async takeAdress(context, payload) {
+    const API = 'AIzaSyDtc5nYAqGQBk1qGNoTbSOcGfKUR0U0tqg';
+    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${payload.lat},${payload.lon}&key=${API}`);
+    const responseData = await response.json();
+
+    if(!response.ok) {
+      const error = new Error(responseData.message || 'Failed to fetch!');
+      throw error;
+    }
+
+    context.commit('setAdress', responseData);
   }
 };

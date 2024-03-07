@@ -18,5 +18,8 @@ export default {
         state.searchHistory.unshift(elToMove);
       }
     }
+  },
+  setAdress(state, payload) {
+    state.adress = payload;
   }
 };

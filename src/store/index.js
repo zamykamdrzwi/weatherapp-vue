@@ -8,7 +8,8 @@ const store = createStore({
   state() {
     return {
       currentWeather: null,
-      searchHistory: []
+      searchHistory: [],
+      adress: null
     };
   },
   mutations,
