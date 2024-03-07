@@ -55,7 +55,7 @@ export default {
       error: null,
       map: null,
       weatherImg: '',
-      newMarker: null,
+      marker: null,
     };
   }, 
   computed: {
@@ -99,7 +99,7 @@ export default {
         temp: this.weather.main.temp,
         city: this.weather.name
       }
-      this.initMap(cords, );
+      this.initMap(cords);
     },
     async initMap(coords) {
       const position = { 
@@ -121,28 +121,63 @@ export default {
         const { Map } = await google.maps.importLibrary("maps");
         this.map = new Map(document.getElementById("map"), {options});
 
-        google.maps.event.addListener(this.map, 'click', (event) => {
-          this.newMarker = new google.maps.Marker({
-            position: event.latLng,
-            map: this.map,
-          });
+        google.maps.event.addListener(this.map, 'click', async (event) => {
           var infoWindow = new google.maps.InfoWindow({
-            content: 'cokokwliekk'
+            content: this.city
           });
-          console.log(infoWindow)
-          this.newMarker.addListener('click', (event) => {
-            infoWindow.open(this.map, this.newMarker)
-            console.log(event);
+
+          if(this.marker === null) {
+            this.marker = new google.maps.Marker({
+              position: event.latLng,
+              map: this.map,
+            });
+
+            const position = this.marker.getPosition();
+            const lat = position.lat();
+            const lon = position.lng();
+            const coords = {
+              lat: lat,
+              lon: lon
+            };
+            await this.weatherToMap(coords);
+          } else {
+            const position = this.marker.getPosition();
+            const lat = position.lat();
+            const lon = position.lng();
+            const coords = {
+              lat: lat,
+              lon: lon
+            };
+            await this.weatherToMap(coords);
+
+            this.marker.setPosition(event.latLng);
+            infoWindow.setContent(this.city);
+          }   
+
+          //console.log(infoWindow)
+          this.marker.addListener('click', () => {
+            infoWindow.open(this.map, this.marker)
+            //console.log(event);
           });
         });
-        let marker = new google.maps.Marker({
-          position: position,
-          map: this.map,
-          content: `City: ${coords.city}, Temp: ${coords.temp}`
-        });
-        console.log(marker);
       });
     },
+    async weatherToMap(coords) {
+      const params = {
+        lat: coords.lat,
+        lon: coords.lon,
+        units: this.units
+      }
+
+      try {
+        await this.$store.dispatch('takeWeatherCoords', params);
+      } catch (error) {
+        this.error = error.message || 'Something failed!';
+      }
+
+      this.city = this.weather.name;
+      this.$store.commit('addSearchHistory', this.city);
+    }
   },
   created() {
     this.currentWeather()
