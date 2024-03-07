@@ -5,6 +5,6 @@
 
 <script>
 export default {
-  props: ['weather', 'showUnit'],
+  props: ['weather', 'forecast', 'showUnit'],
 }
 </script>
