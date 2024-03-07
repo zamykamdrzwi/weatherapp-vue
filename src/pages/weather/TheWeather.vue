@@ -28,6 +28,7 @@
         </form>
         <weather-output v-if="formIsValid && !error"
         :weather="weather"
+        :forecast="forecast"
         :showUnit="showUnit">
         </weather-output>
         <div v-else>
