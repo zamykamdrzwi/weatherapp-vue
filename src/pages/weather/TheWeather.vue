@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <label for="map" class="mb-2">Chose place from map!</label>
+        <label for="map" class="mb-2">Choose place from map!</label>
         <div id="map"></div>
       </div>
     </div>
@@ -148,6 +148,7 @@ export default {
           await this.weatherToMap(coords);
           await this.$store.dispatch('takeFutureWeather', coords);
           console.log(this.forecast);
+          console.log(this.weather)
 
           var infoWindow = new google.maps.InfoWindow({
             content: this.city
