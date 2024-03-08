@@ -1,11 +1,11 @@
 <template>
   <div class="fw-bold fs-3">{{ weather.name }}, {{ weather.sys.country }}</div>
-  <div class="fs-1">{{ weather.main.temp }}{{ showUnit }}</div>
-  <div class="">
-    Feels like {{ weather.main.feels_like }}{{ showUnit }}, {{ weather.weather[0].description }}
-  </div>
-  <div>
+  <div class="fs-1 mb-2">
     <img :src="imgUrl" alt="Icon">
+    {{ weather.main.temp }}{{ showUnit }}
+  </div>
+  <div class="mb-2 fw-bold">
+    Feels like {{ weather.main.feels_like }}{{ showUnit }}, {{ weather.weather[0].description }}
   </div>
   <div>Humidity: {{ weather.main.humidity }} %</div>
   <div>Pressure: {{ weather.main.pressure }} hPa</div>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  props: ['weather', 'forecast', 'showUnit'],
+  props: ['weather', 'showUnit'],
   computed: {
     imgUrl() {
       return `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}.png`;

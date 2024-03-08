@@ -28,9 +28,12 @@
         </form>
         <weather-output v-if="formIsValid && !error"
         :weather="weather"
-        :forecast="forecast"
         :showUnit="showUnit">
         </weather-output>
+        <forecast-output v-if="formIsValid && !error"
+        :forecast="forecast"
+        :showUnit="showUnit">
+        </forecast-output>
         <div v-else>
           <div class="text-danger">{{ error }}</div>
         </div>
@@ -47,10 +50,12 @@
 /* global google */
 import { Loader } from '@googlemaps/js-api-loader';
 import WeatherOutput from '../../components/weather/WeatherOutput.vue';
+import ForecastOutput from '@/components/weather/ForecastOutput.vue';
 
 export default {
   components: {
-    WeatherOutput
+    WeatherOutput,
+    ForecastOutput
   },
   data() {
     return {
