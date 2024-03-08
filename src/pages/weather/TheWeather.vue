@@ -31,7 +31,7 @@
         :showUnit="showUnit">
         </weather-output>
         <forecast-output v-if="formIsValid && !error"
-        :forecast="forecast"
+
         :showUnit="showUnit">
         </forecast-output>
         <div v-else>
@@ -97,7 +97,14 @@ export default {
       }
       try {
         await this.$store.dispatch('takeCurrentWeather', params);
+        const coords = {
+          lat: this.weather.coord.lat,
+          lon: this.weather.coord.lon
+        }
+        console.log(coords)
+        await this.$store.dispatch('takeFutureWeather', coords);
         this.$store.commit('addSearchHistory', this.city);
+        console.log(coords)
       } catch(error) {
         this.error = error.message || 'Something failed!';
       }

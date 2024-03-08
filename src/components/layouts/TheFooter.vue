@@ -4,8 +4,5 @@
 
 <style lang="scss" scoped>
 @import '../../assets/style/style.scss';
-.footer {
-  position: absolute;
-  bottom: 0;
-}
+
 </style>
