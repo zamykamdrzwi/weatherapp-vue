@@ -1,9 +1,14 @@
 <template>
   <ul v-if="forecastList && forecastList.list">
     <li v-for="item in forecastWeek" :key="item">
-      <ul>
-        <li v-for="x in item" :key="x">
-          {{ x.dt_txt }}
+      <ul>  
+        <div>Day {{ item[0].dt_txt.substring(0, 10) }}</div>
+        <li v-for="hour in item" :key="hour">
+          <div class="fw-bold">{{ hour.dt_txt.substring(11, 16) }}</div>
+          <div class="fs-4">
+            <img :src="src1+hour.weather[0].icon+src2" alt="Icon">
+            {{ hour.main.temp }} {{ showUnit }}
+          </div>
         </li>
       </ul>
     </li>
@@ -15,7 +20,9 @@ export default {
   props: ['showUnit'],
   data() {
     return {
-      forecastWeek: []
+      forecastWeek: [],
+      src1: 'https://openweathermap.org/img/wn/',
+      src2: '.png'
     };
   },
   computed: {
@@ -30,7 +37,7 @@ export default {
   },
   methods: {
     showForecast() {
-      console.log(this.forecastList);
+      console.log(this.forecastList)
       let currentDate = this.forecastList.list[0].dt_txt.substring(0, 10);
       let day = 0;
 
@@ -38,9 +45,9 @@ export default {
         if(item.dt_txt.substring(0, 10) === currentDate) {
           this.forecastWeek[day] = [];
           
-          this.forecastList.list.forEach(x => {
-            if(x.dt_txt.substring(0, 10) === currentDate) {
-              this.forecastWeek[day].push(x)
+          this.forecastList.list.forEach(hour => {
+            if(hour.dt_txt.substring(0, 10) === currentDate) {
+              this.forecastWeek[day].push(hour)
             }
           });
         } else {
@@ -48,8 +55,6 @@ export default {
           day ++;
         }
       });
-
-      console.log(this.forecastWeek)
     }
   }
 }

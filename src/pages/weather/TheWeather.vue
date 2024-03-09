@@ -86,7 +86,6 @@ export default {
     async currentWeather() {
       this.error = null;
       this.formIsValid = true;
-      console.log(this.searchHistory)
       if(this.city === '') {
         this.formIsValid = false;
         return;
@@ -99,12 +98,11 @@ export default {
         await this.$store.dispatch('takeCurrentWeather', params);
         const coords = {
           lat: this.weather.coord.lat,
-          lon: this.weather.coord.lon
+          lon: this.weather.coord.lon,
+          units: this.units
         }
-        console.log(coords)
         await this.$store.dispatch('takeFutureWeather', coords);
         this.$store.commit('addSearchHistory', this.city);
-        console.log(coords)
       } catch(error) {
         this.error = error.message || 'Something failed!';
       }
@@ -154,13 +152,12 @@ export default {
           const lon = position.lng();
           const coords = {
             lat: lat,
-            lon: lon
+            lon: lon,
+            units: this.units
           };
 
           await this.weatherToMap(coords);
           await this.$store.dispatch('takeFutureWeather', coords);
-          console.log(this.forecast);
-          console.log(this.weather)
 
           var infoWindow = new google.maps.InfoWindow({
             content: this.city
@@ -168,7 +165,6 @@ export default {
 
           this.marker.addListener('click', () => {
             infoWindow.open(this.map, this.marker)
-            //console.log(event);
           });
         });
       });
