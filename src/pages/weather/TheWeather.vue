@@ -30,10 +30,6 @@
         :weather="weather"
         :showUnit="showUnit">
         </weather-output>
-        <forecast-output v-if="formIsValid && !error"
-
-        :showUnit="showUnit">
-        </forecast-output>
         <div v-else>
           <div class="text-danger">{{ error }}</div>
         </div>
@@ -41,6 +37,14 @@
       <div class="col-lg-6">
         <label for="map" class="mb-2">Choose place from map!</label>
         <div id="map"></div>
+      </div>
+    </div>
+    <div>
+      <forecast-output v-if="formIsValid && !error"
+        :showUnit="showUnit">
+      </forecast-output>
+      <div v-else>
+        <div class="text-danger">{{ error }}</div>
       </div>
     </div>
   </div>

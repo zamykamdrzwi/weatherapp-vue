@@ -1,9 +1,9 @@
 <template>
-  <ul v-if="forecastList && forecastList.list">
-    <li v-for="item in forecastWeek" :key="item">
-      <ul>  
+  <ul v-if="forecastList && forecastList.list" class="list-unstyled p-0">
+    <li v-for="item in forecastWeek" :key="item" class="list-unstyled">
+      <ul class="row list-unstyled p-0">  
         <div>Day {{ item[0].dt_txt.substring(0, 10) }}</div>
-        <li v-for="hour in item" :key="hour">
+        <li v-for="hour in item" :key="hour" class="col list-unstyled">
           <div class="fw-bold">{{ hour.dt_txt.substring(11, 16) }}</div>
           <div class="fs-4">
             <img :src="src1+hour.weather[0].icon+src2" alt="Icon">
@@ -47,7 +47,7 @@ export default {
           
           this.forecastList.list.forEach(hour => {
             if(hour.dt_txt.substring(0, 10) === currentDate) {
-              this.forecastWeek[day].push(hour)
+              this.forecastWeek[day].push(hour)  
             }
           });
         } else {
@@ -59,3 +59,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.custom-padding {
+  padding-left: 0 !important;
+}
+</style>
