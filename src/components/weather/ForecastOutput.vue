@@ -1,6 +1,6 @@
 <template>
   <ul v-if="forecastList && forecastList.list" class="list-unstyled p-0">
-    <li v-for="item in forecastWeek" :key="item" class="list-unstyled">
+    <!-- <li v-for="item in forecastWeek" :key="item" class="list-unstyled">
       <ul class="row list-unstyled p-0">  
         <div>Day {{ item[0].dt_txt.substring(0, 10) }}</div>
         <li v-for="hour in item" :key="hour" class="col list-unstyled">
@@ -11,8 +11,15 @@
           </div>
         </li>
       </ul>
-    </li>
+    </li> -->
+    <button class="btn btn-primary" 
+    v-for="item in forecastWeek" 
+    :key="item"
+    @click="currentForecast(item)">
+      {{ item[0].dt_txt.substring(0, 10) }}
+    </button>
   </ul>
+  <div id="listEl"></div>
 </template>
 
 <script>
@@ -22,7 +29,9 @@ export default {
     return {
       forecastWeek: [],
       src1: 'https://openweathermap.org/img/wn/',
-      src2: '.png'
+      src2: '.png',
+      previousLength: null,
+      listContainer: null
     };
   },
   computed: {
@@ -55,6 +64,23 @@ export default {
           day ++;
         }
       });
+    },
+    currentForecast(item) {
+      const listEl = document.querySelector('#listEl');
+      if(this.listContainer) {
+        listEl.removeChild(this.listContainer);
+      }
+
+      this.listContainer = document.createElement('ul');
+      listEl.appendChild(this.listContainer)
+
+      item.forEach(hour => {
+        let newHour = document.createElement('li');
+        newHour.innerHTML = `Test - ${hour.dt_txt}`;
+        this.listContainer.appendChild(newHour);
+      });
+
+      this.previousLength = item.length;
     }
   }
 }
