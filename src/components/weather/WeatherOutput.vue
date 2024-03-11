@@ -10,6 +10,8 @@
   <div>Humidity: {{ weather.main.humidity }} %</div>
   <div>Pressure: {{ weather.main.pressure }} hPa</div>
   <div>Visibility: {{ visibility }} km</div>
+  <div v-if="weather.rain">Rain: {{ rain }} mm</div>
+  <div v-if="weather.snow">Snow: {{ snow }} mm</div>
 </template>
 
 <script>
@@ -21,6 +23,12 @@ export default {
     },
     visibility() {
       return this.weather.visibility/1000;
+    },
+    rain() {
+      return this.weather.rain['1h'] || this.weather.rain['3h'];
+    },
+    snow() {
+      return this.weather.snow['1h'] || this.weather.snow['3h'];
     }
   }
 }
