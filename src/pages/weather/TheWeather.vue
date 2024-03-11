@@ -47,6 +47,8 @@
         <div class="text-danger">{{ error }}</div>
       </div>
     </div>
+    <button class="btn btn-secondary" @click="test">test</button>
+    <button class="btn btn-secondary" @click="test2">test</button>
   </div>
 </template>
 
@@ -195,6 +197,17 @@ export default {
       this.city = this.weather.name;
       this.$store.commit('addSearchHistory', this.city);
     },
+    test() {
+      let xd = {
+        test: '123',
+        xdd: 'tyrtry'
+      }
+      this.$store.dispatch('setStoreLocal', xd);
+    },
+    test2() {
+      const myObj = this.$store.getters.getLocalStorage;
+      console.log(myObj);
+    }
   },
   created() {
     this.currentWeather()

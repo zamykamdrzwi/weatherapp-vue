@@ -5,4 +5,10 @@ export default {
       lon: state.currentWeather.coord.lon
     };
   },
+  getLocalStorage() {
+    let myObj = JSON.parse(localStorage.getItem('localObj'));
+    return {
+      myObj
+    }
+  }
 };
