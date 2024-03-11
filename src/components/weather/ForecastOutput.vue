@@ -30,8 +30,7 @@ export default {
       forecastWeek: [],
       src1: 'https://openweathermap.org/img/wn/',
       src2: '.png',
-      previousLength: null,
-      listContainer: null
+      listContainer: null,
     };
   },
   computed: {
@@ -41,7 +40,8 @@ export default {
   },
   watch: {
     forecastList() {
-      this.showForecast()
+      this.showForecast();
+      this.hideForecast();
     }
   },
   methods: {
@@ -67,20 +67,44 @@ export default {
     },
     currentForecast(item) {
       const listEl = document.querySelector('#listEl');
-      if(this.listContainer) {
+      const test = document.querySelector('.check-exist')
+
+      if(test === null) {
+        this.listContainer = null
+      }
+      
+      if(this.listContainer !== null) {
         listEl.removeChild(this.listContainer);
       }
 
       this.listContainer = document.createElement('ul');
-      listEl.appendChild(this.listContainer)
+      this.listContainer.classList.add('list-unstyled');
+      listEl.appendChild(this.listContainer);
 
       item.forEach(hour => {
-        let newHour = document.createElement('li');
-        newHour.innerHTML = `Test - ${hour.dt_txt}`;
+        const newHour = document.createElement('li');
+
+        newHour.classList.add('check-exist')
+        const currentHour = hour.dt_txt.substring(11, 16);
+
+        newHour.innerHTML = `
+          <div>${currentHour}</div>
+          <div class="fs-3">
+            ${hour.main.temp} ${this.showUnit}
+          </div>
+        `;
         this.listContainer.appendChild(newHour);
       });
-
-      this.previousLength = item.length;
+    },
+    hideForecast() {
+      const listEl = document.querySelector('#listEl');
+      if(this.listContainer !== null) {
+        try {
+          listEl.removeChild(this.listContainer);
+        } catch {
+          return;
+        }
+      }
     }
   }
 }

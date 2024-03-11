@@ -21,7 +21,7 @@
           <div class="mt-3">
             <select class="form-select shadow-none" v-model="units">
               <option value="metric">Celsius °C</option>
-              <option value="imperial">Fahrenheit °F</option>
+              <option value="imperial">Fahrenheit °F</option> 
             </select>
           </div>
           <button class="btn btn-primary mt-3">Pogoda!!</button>
