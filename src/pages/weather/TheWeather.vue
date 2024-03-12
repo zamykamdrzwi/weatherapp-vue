@@ -47,6 +47,7 @@
         <div class="text-danger">{{ error }}</div>
       </div>
     </div>
+    <the-chart></the-chart>
     <button class="btn btn-secondary" @click="test">test</button>
     <button class="btn btn-secondary" @click="test2">test</button>
   </div>
@@ -57,11 +58,13 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import WeatherOutput from '../../components/weather/WeatherOutput.vue';
 import ForecastOutput from '@/components/weather/ForecastOutput.vue';
+import TheChart from '@/components/UI/TheChart.vue';
 
 export default {
   components: {
     WeatherOutput,
-    ForecastOutput
+    ForecastOutput,
+    TheChart
   },
   data() {
     return {
