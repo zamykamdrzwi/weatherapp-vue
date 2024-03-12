@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     showForecast() {
-      console.log(this.forecastList)
       let currentDate = this.forecastList.list[0].dt_txt.substring(0, 10);
       let day = 0;
 

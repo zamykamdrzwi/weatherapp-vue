@@ -40,6 +40,11 @@
       </div>
     </div>
     <div>
+      <the-chart
+      :showUnit="showUnit">
+      </the-chart>
+    </div>
+    <div>
       <forecast-output v-if="formIsValid && !error"
         :showUnit="showUnit">
       </forecast-output>
@@ -47,7 +52,6 @@
         <div class="text-danger">{{ error }}</div>
       </div>
     </div>
-    <the-chart></the-chart>
     <button class="btn btn-secondary" @click="test">test</button>
     <button class="btn btn-secondary" @click="test2">test</button>
   </div>

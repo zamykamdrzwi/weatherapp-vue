@@ -1,7 +1,8 @@
 <template>
   <div>
-    <canvas id="acquisitions"></canvas>
+    <canvas id="chart" height="40"></canvas>
   </div>
+  <button @click="checkForecast()">XDD</button>
 </template>
 
 <script>
@@ -9,41 +10,61 @@ import Chart from 'chart.js/auto';
 // import { getRelativePosition } from 'chart.js/helpers';
 
 export default {
+  props: ['showUnit'],
   data() {
     return {
 
     };
   },
+  computed: {
+    getForecast() {
+      return this.$store.state['forecast'];
+    }
+  },
   methods: {
-    async exampleChart() {
-      const data = [
-        { year: 2010, count: 10 },
-        { year: 2011, count: 20 },
-        { year: 2012, count: 15 },
-        { year: 2013, count: 25 },
-        { year: 2014, count: 22 },
-        { year: 2015, count: 30 },
-        { year: 2016, count: 28 },
-      ];
-      new Chart(
-        document.getElementById('acquisitions'),
+    async weatherChart() {
+      const forecast = []
+      
+      for (let i = 0; i <= 5; i ++) {
+        const weatherObj = {
+          date: await this.getForecast.list[i].dt_txt.substring(11, 16),
+          temp: await this.getForecast.list[i].main.temp
+        }
+        forecast.push(weatherObj)
+      }
+      console.log(forecast)
+
+      await new Chart(
+        document.querySelector('#chart'),
         {
-          type: 'bar',
+          type: 'line',
           data: {
-            labels: data.map(row => row.year),
+            labels: forecast.map(row => row.date),
             datasets: [
               {
-                label: 'Acquisitions by year',
-                data: data.map(row => row.count)
+                label: 'Hourly Forecast',
+                data: forecast.map(row => row.temp)
               }
             ]
           }
         }
       );
+    },
+    async checkForecast() {
+      try {
+        const data = await this.$store.state['forecast'];
+        console.log(data)
+        console.log(this.getForecast)
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   mounted() {
-    this.exampleChart();
+    this.checkForecast();
   }
 }
 </script>
+
+<style lang="scss" scoped>
+</style>
