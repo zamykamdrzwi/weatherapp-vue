@@ -2,7 +2,6 @@
   <div>
     <canvas id="chart" height="40"></canvas>
   </div>
-  <button @click="checkForecast()">XDD</button>
 </template>
 
 <script>
@@ -28,6 +27,7 @@ export default {
   },
   methods: {
     async weatherChart() {
+      const unit = this.showUnit;
       const forecast = []
       
       for (let i = 0; i <= 5; i ++) {
@@ -50,22 +50,23 @@ export default {
                 data: forecast.map(row => row.temp)
               }
             ]
+          },
+          options: {
+            scales: {
+              y: {
+                ticks: {
+                  callback: function(value) {
+                    return value + unit;
+                  }
+                }
+              }
+            }
           }
         }
       );
     },
-    checkChart(x) {
-      if (this.chart) {
-        this.chart.destroy();
-      }
-      if (x) {
-        return;
-      }
-      this.weatherChart();
-    },
     destroyChart(x) {
       let chartStatus = Chart.getChart('chart');
-      console.log(chartStatus);
       if(chartStatus != undefined) {
         chartStatus.destroy();
       }
@@ -77,7 +78,6 @@ export default {
   },
   beforeMount() {
     this.destroyChart(true);
-    // this.checkChart(true);
   }
 }
 </script>
