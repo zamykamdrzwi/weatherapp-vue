@@ -13,12 +13,17 @@ export default {
   props: ['showUnit'],
   data() {
     return {
-
+      chart: null
     };
   },
   computed: {
     getForecast() {
       return this.$store.state['forecast'];
+    }
+  },
+  watch: {
+    getForecast() {
+      this.checkChart();
     }
   },
   methods: {
@@ -32,9 +37,8 @@ export default {
         }
         forecast.push(weatherObj)
       }
-      console.log(forecast)
 
-      await new Chart(
+      this.chart = await new Chart(
         document.querySelector('#chart'),
         {
           type: 'line',
@@ -50,18 +54,23 @@ export default {
         }
       );
     },
-    async checkForecast() {
-      try {
-        const data = await this.$store.state['forecast'];
-        console.log(data)
-        console.log(this.getForecast)
-      } catch (error) {
-        console.log(error)
+    checkChart(x) {
+      if (this.chart) {
+        this.chart.destroy();
       }
+      if(x) {
+        return;
+      }
+      this.weatherChart();
     }
   },
-  mounted() {
-    this.checkForecast();
+  beforeMount() {
+    console.log(123)
+    this.checkChart(true);
+  },
+  errorCaptured() {
+    console.log('xd')
+    this.chart.destroy();
   }
 }
 </script>
