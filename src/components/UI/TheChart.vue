@@ -13,7 +13,7 @@ export default {
   props: ['showUnit'],
   data() {
     return {
-      chart: null
+      chart: null,
     };
   },
   computed: {
@@ -23,7 +23,7 @@ export default {
   },
   watch: {
     getForecast() {
-      this.checkChart();
+      this.destroyChart();
     }
   },
   methods: {
@@ -58,19 +58,26 @@ export default {
       if (this.chart) {
         this.chart.destroy();
       }
-      if(x) {
+      if (x) {
+        return;
+      }
+      this.weatherChart();
+    },
+    destroyChart(x) {
+      let chartStatus = Chart.getChart('chart');
+      console.log(chartStatus);
+      if(chartStatus != undefined) {
+        chartStatus.destroy();
+      }
+      if (x) {
         return;
       }
       this.weatherChart();
     }
   },
   beforeMount() {
-    console.log(123)
-    this.checkChart(true);
-  },
-  errorCaptured() {
-    console.log('xd')
-    this.chart.destroy();
+    this.destroyChart(true);
+    // this.checkChart(true);
   }
 }
 </script>
