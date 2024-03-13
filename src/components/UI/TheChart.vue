@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chart-container">
     <canvas id="chart" height="40"></canvas>
   </div>
 </template>
@@ -33,37 +33,48 @@ export default {
       for (let i = 0; i <= 5; i ++) {
         const weatherObj = {
           date: await this.getForecast.list[i].dt_txt.substring(11, 16),
-          temp: await this.getForecast.list[i].main.temp
+          temp: await this.getForecast.list[i].main.temp.toFixed(1)
         }
         forecast.push(weatherObj)
       }
 
-      this.chart = await new Chart(
-        document.querySelector('#chart'),
-        {
-          type: 'line',
-          data: {
-            labels: forecast.map(row => row.date),
-            datasets: [
-              {
-                label: 'Hourly Forecast',
-                data: forecast.map(row => row.temp)
-              }
-            ]
-          },
-          options: {
-            scales: {
-              y: {
-                ticks: {
-                  callback: function(value) {
-                    return value + unit;
-                  }
-                }
+      var data = {
+        labels: forecast.map(row => row.date),
+        datasets: [
+          {
+            label: 'Hourly Forecast',
+            data: forecast.map(row => row.temp)
+          }
+        ]
+      }
+
+      var options = {
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            stacked: true,
+            grid: {
+              display: true
+            },
+            ticks: {
+              callback: function(value) {
+                return value + unit;
               }
             }
+          },
+          x: {
+            grid: {
+              display: false
+            }
           }
-        }
-      );
+        },
+      }
+
+      this.chart = await new Chart('chart', {
+        type: 'line',
+        options: options,
+        data: data
+      });
     },
     destroyChart(x) {
       let chartStatus = Chart.getChart('chart');
@@ -83,4 +94,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 200px;
+  width: auto;
+}
 </style>
