@@ -27,8 +27,8 @@
           <button class="btn btn-primary mt-3">Pogoda!!</button>
         </form>
         <weather-output v-if="formIsValid && !error"
-        :weather="weather"
-        :showUnit="showUnit">
+          :weather="weather"
+          :showUnit="showUnit">
         </weather-output>
         <div v-else>
           <div class="text-danger">{{ error }}</div>
@@ -40,12 +40,14 @@
       </div>
     </div>
     <div>
-      <the-chart
-      :showUnit="showUnit">
+      <the-chart 
+        class="mt-4"
+        :showUnit="showUnit">
       </the-chart>
     </div>
     <div>
-      <forecast-output v-if="formIsValid && !error"
+      <forecast-output 
+        v-if="formIsValid && !error"
         :showUnit="showUnit">
       </forecast-output>
       <div v-else>
