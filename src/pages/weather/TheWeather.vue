@@ -218,18 +218,20 @@ export default {
       }
       return item;
     },
-    getStorage() {
+    async getStorage() {
       const historyStorage = this.searchHistoryStorage.array;
-      historyStorage.forEach(item => {
+      await historyStorage.forEach(item => {
         this.$store.commit('addSearchHistory', item);
       });
-    }
+      this.city = this.searchHistory[0];
+      this.currentWeather();
+    },
   },
   created() {
-    this.currentWeather()
+    this.currentWeather();
   },
   mounted() {
-    this.getStorage()
+    this.getStorage();
   }
 }
 </script>
