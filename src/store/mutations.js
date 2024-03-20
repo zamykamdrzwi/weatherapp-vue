@@ -18,6 +18,11 @@ export default {
         state.searchHistory.unshift(elToMove);
       }
     }
+    let storageObj = {
+      citySearchHistory: state.searchHistory
+    }
+    let localObjSerialized = JSON.stringify(storageObj);
+    localStorage.setItem('localObj', localObjSerialized);
   },
   setAdress(state, payload) {
     state.adress = payload;

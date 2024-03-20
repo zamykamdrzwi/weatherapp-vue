@@ -90,6 +90,9 @@ export default {
     searchHistory() {
       return this.$store.state['searchHistory'];
     },
+    searchHistoryStorage() {
+      return this.$store.getters.getLocalStorage;
+    },
     forecast() {
       return this.$store.state['forecast'];
     }
@@ -206,14 +209,21 @@ export default {
       this.city = this.weather.name;
       this.$store.commit('addSearchHistory', this.city);
     },
-    test() {
-      let xd = {
-        test: '123',
-        xdd: 'tyrtry'
+    setSearchHistory(x) {
+      let item;
+      if(x) {
+        item = this.$store.getters.getLocalStorage;
+        x = false;
+      } else {
+        item = this.$store.state['searchHistory'];
       }
-      this.$store.dispatch('setStoreLocal', xd);
+      return item;
     },
-    test2() {
+    test() {
+      const xd = this.setSearchHistory();
+      console.log(xd);
+    },
+    takeStorage() {
       const myObj = this.$store.getters.getLocalStorage;
       console.log(myObj);
     }
@@ -221,6 +231,9 @@ export default {
   created() {
     this.currentWeather()
   },
+  mounted() {
+    this.test();
+  }
 }
 </script>
 
