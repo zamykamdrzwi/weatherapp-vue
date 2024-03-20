@@ -49,8 +49,8 @@ export default {
 
     context.commit('setAdress', responseData);
   },
-  setStoreLocal(_, payload) {
-    let localObjSerialized = JSON.stringify(payload);
-    localStorage.setItem('localObj', localObjSerialized);
-  }
+  // setStoreLocal(_, payload) {
+  //   let localObjSerialized = JSON.stringify(payload);
+  //   localStorage.setItem('localObj', localObjSerialized);
+  // }
 };

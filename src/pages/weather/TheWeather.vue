@@ -54,8 +54,6 @@
         <div class="text-danger">{{ error }}</div>
       </div>
     </div>
-    <button class="btn btn-secondary" @click="test">test</button>
-    <button class="btn btn-secondary" @click="test2">test</button>
   </div>
 </template>
 
@@ -81,6 +79,7 @@ export default {
       error: null,
       map: null,
       marker: null,
+      finalSearchHistory: null
     };
   }, 
   computed: {
@@ -120,7 +119,7 @@ export default {
           units: this.units
         }
         await this.$store.dispatch('takeFutureWeather', coords);
-        this.$store.commit('addSearchHistory', this.city);
+        await this.$store.commit('addSearchHistory', this.city);
       } catch(error) {
         this.error = error.message || 'Something failed!';
       }
@@ -219,20 +218,18 @@ export default {
       }
       return item;
     },
-    test() {
-      const xd = this.setSearchHistory();
-      console.log(xd);
-    },
-    takeStorage() {
-      const myObj = this.$store.getters.getLocalStorage;
-      console.log(myObj);
+    getStorage() {
+      const historyStorage = this.searchHistoryStorage.array;
+      historyStorage.forEach(item => {
+        this.$store.commit('addSearchHistory', item);
+      });
     }
   },
   created() {
     this.currentWeather()
   },
   mounted() {
-    this.test();
+    this.getStorage()
   }
 }
 </script>

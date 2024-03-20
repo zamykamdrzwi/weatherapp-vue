@@ -7,8 +7,12 @@ export default {
   },
   getLocalStorage() {
     let myObj = JSON.parse(localStorage.getItem('localObj'));
+    const array = [];
+    myObj.citySearchHistory.forEach(item => {
+      array.push(item);
+    });
     return {
-      myObj
+      array
     }
   }
 };
