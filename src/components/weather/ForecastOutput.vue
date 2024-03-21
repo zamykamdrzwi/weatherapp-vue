@@ -1,6 +1,6 @@
 <template>
   <ul v-if="forecastList && forecastList.list" class="list-unstyled p-0 mt-4
-  d-flex justify-content-center gap-2" id="parentElement">
+  d-flex justify-content-center gap-2 flex-wrap" id="parentElement">
     <button class="btn btn-outline-secondary"
       v-for="(item, index) in forecastWeek" 
       :key="item"

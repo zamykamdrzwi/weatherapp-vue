@@ -26,6 +26,9 @@
           </div>
           <button class="btn btn-primary mt-3">Pogoda!!</button>
         </form>
+        <the-time
+          :time="time">
+        </the-time>
         <weather-output v-if="formIsValid && !error"
           :weather="weather"
           :showUnit="showUnit">
@@ -63,12 +66,14 @@ import { Loader } from '@googlemaps/js-api-loader';
 import WeatherOutput from '../../components/weather/WeatherOutput.vue';
 import ForecastOutput from '@/components/weather/ForecastOutput.vue';
 import TheChart from '@/components/UI/TheChart.vue';
+import TheTime from '../../components/UI/TheTime.vue';
 
 export default {
   components: {
     WeatherOutput,
     ForecastOutput,
-    TheChart
+    TheChart,
+    TheTime
   },
   data() {
     return {
@@ -79,7 +84,8 @@ export default {
       error: null,
       map: null,
       marker: null,
-      finalSearchHistory: null
+      finalSearchHistory: null,
+      time: 'cokowliekk'
     };
   }, 
   computed: {
