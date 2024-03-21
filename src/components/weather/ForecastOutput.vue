@@ -104,8 +104,16 @@ export default {
               <img src="https://openweathermap.org/img/wn/${hour.weather[0].icon}.png" alt="Icon" />
               ${hour.main.temp.toFixed(0)} ${this.showUnit}
             </div>
-            <div>
-              
+            <div class="card-text">
+              <div>
+                Humidity: ${hour.main.humidity} %
+              </div>
+              <div>
+                Pressure: ${hour.main.pressure} hPa
+              </div>
+              <div>
+                Visibility: ${hour.visibility/1000} km
+              </div>
             </div>
           </div>
         `;
