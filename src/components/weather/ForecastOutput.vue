@@ -1,21 +1,11 @@
 <template>
-  <ul v-if="forecastList && forecastList.list" class="list-unstyled p-0 mt-4">
-    <!-- <li v-for="item in forecastWeek" :key="item" class="list-unstyled">
-      <ul class="row list-unstyled p-0">  
-        <div>Day {{ item[0].dt_txt.substring(0, 10) }}</div>
-        <li v-for="hour in item" :key="hour" class="col list-unstyled">
-          <div class="fw-bold">{{ hour.dt_txt.substring(11, 16) }}</div>
-          <div class="fs-4">
-            <img :src="src1+hour.weather[0].icon+src2" alt="Icon">
-            {{ hour.main.temp }} {{ showUnit }}
-          </div>
-        </li>
-      </ul>
-    </li> -->
-    <button class="btn btn-primary" 
-      v-for="item in forecastWeek" 
+  <ul v-if="forecastList && forecastList.list" class="list-unstyled p-0 mt-4
+  d-flex justify-content-center gap-2" id="parentElement">
+    <button class="btn btn-outline-secondary"
+      v-for="(item, index) in forecastWeek" 
       :key="item"
-      @click="currentForecast(item)">
+      :id="index"
+      @click="currentForecast(item, index)">
       {{ item[0].dt_txt.substring(0, 10) }}
     </button>
   </ul>
@@ -64,7 +54,17 @@ export default {
         }
       });
     },
-    currentForecast(item) {
+    currentForecast(item, index) {
+      const parentEl = document.querySelector('#parentElement');
+      const childrenEl = parentEl.children;
+      for(let i=0; i<=childrenEl.length-1; i++) {
+        if(childrenEl[i].classList.contains('active')) {
+          childrenEl[i].classList.remove('active');
+        }
+      }
+      const activeBtn = document.getElementById(index);
+      activeBtn.classList.add('active');
+
       const listEl = document.querySelector('#listEl');
       const test = document.querySelector('.check-exist')
 
@@ -141,5 +141,11 @@ export default {
 .custom-li {
   display: inline-block;
   background-color: yellow;
+}
+#active {
+  color: white !important;
+}
+#btn:hover {
+  color: white !important;
 }
 </style>
