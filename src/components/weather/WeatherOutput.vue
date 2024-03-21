@@ -2,10 +2,10 @@
   <div class="fw-bold fs-3">{{ weather.name }}, {{ weather.sys.country }}</div>
   <div class="fs-1 mb-2">
     <img :src="imgUrl" alt="Icon">
-    {{ weather.main.temp }}{{ showUnit }}
+    {{ weather.main.temp.toFixed(0) }}{{ showUnit }}
   </div>
   <div class="mb-2 fw-bold">
-    Feels like {{ weather.main.feels_like }}{{ showUnit }}, {{ weather.weather[0].description }}
+    Feels like {{ weather.main.feels_like.toFixed(0) }}{{ showUnit }}, {{ weather.weather[0].description }}
   </div>
   <div>Humidity: {{ weather.main.humidity }} %</div>
   <div>Pressure: {{ weather.main.pressure }} hPa</div>

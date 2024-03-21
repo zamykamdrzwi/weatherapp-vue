@@ -13,13 +13,13 @@
       </ul>
     </li> -->
     <button class="btn btn-primary" 
-    v-for="item in forecastWeek" 
-    :key="item"
-    @click="currentForecast(item)">
+      v-for="item in forecastWeek" 
+      :key="item"
+      @click="currentForecast(item)">
       {{ item[0].dt_txt.substring(0, 10) }}
     </button>
   </ul>
-  <div id="listEl"></div>
+  <div id="listEl" class="d-flex justify-content-center"></div>
 </template>
 
 <script>
@@ -77,19 +77,36 @@ export default {
       }
 
       this.listContainer = document.createElement('ul');
-      this.listContainer.classList.add('list-unstyled');
+      this.listContainer.classList.add(
+        'list-unstyled', 
+        'd-flex',
+        'flex-wrap',
+        'w-100',
+      );
       listEl.appendChild(this.listContainer);
 
       item.forEach(hour => {
         const newHour = document.createElement('li');
+        newHour.classList.add(
+          'card',
+          'custom-li',
+          'm-auto',
+          'mt-2'
+        );
 
         newHour.classList.add('check-exist')
         const currentHour = hour.dt_txt.substring(11, 16);
 
         newHour.innerHTML = `
-          <div>${currentHour}</div>
-          <div class="fs-3">
-            ${hour.main.temp} ${this.showUnit}
+          <div class="card-header">${currentHour}</div>
+          <div class="card-body">
+            <div class="fs-3 card-title">
+              <img src="https://openweathermap.org/img/wn/${hour.weather[0].icon}.png" alt="Icon" />
+              ${hour.main.temp.toFixed(0)} ${this.showUnit}
+            </div>
+            <div>
+              
+            </div>
           </div>
         `;
         this.listContainer.appendChild(newHour);
@@ -112,5 +129,9 @@ export default {
 <style lang="scss" scoped>
 .custom-padding {
   padding-left: 0 !important;
+}
+.custom-li {
+  display: inline-block;
+  background-color: yellow;
 }
 </style>
