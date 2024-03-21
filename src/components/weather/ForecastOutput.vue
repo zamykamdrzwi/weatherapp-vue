@@ -1,12 +1,15 @@
 <template>
   <ul v-if="forecastList && forecastList.list" class="list-unstyled p-0 mt-4
   d-flex justify-content-center gap-2 flex-wrap" id="parentElement">
-    <button class="btn btn-outline-secondary"
+    <button class="btn btn-outline-secondary custom-btn"
       v-for="(item, index) in forecastWeek" 
       :key="item"
       :id="index"
       @click="currentForecast(item, index)">
       {{ item[0].dt_txt.substring(0, 10) }}
+      <div class="fw-bold">
+        {{ day[index] }}
+      </div>
     </button>
   </ul>
   <div id="listEl" class="d-flex justify-content-center"></div>
@@ -21,6 +24,7 @@ export default {
       src1: 'https://openweathermap.org/img/wn/',
       src2: '.png',
       listContainer: null,
+      day: null
     };
   },
   computed: {
@@ -53,6 +57,23 @@ export default {
           day ++;
         }
       });
+      this.showDate(this.forecastWeek);
+    },
+    showDate(table) {
+      const dateTable = [];
+      table.forEach(item => {
+        dateTable.push(item[0].dt_txt.substring(0, 10))
+      });
+      const dayTable = []
+      dateTable.forEach(item => {
+        const date = new Date(item);
+        const dayOfWeekIndex = date.getDay();
+        const daysOfWeek = ['Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        const dayOfWeekName = daysOfWeek[dayOfWeekIndex];
+        dayTable.push(dayOfWeekName);
+      });
+
+      this.day = dayTable;
     },
     currentForecast(item, index) {
       const parentEl = document.querySelector('#parentElement');
@@ -142,10 +163,7 @@ export default {
   display: inline-block;
   background-color: yellow;
 }
-#active {
-  color: white !important;
-}
-#btn:hover {
+.custom-btn:hover, .active {
   color: white !important;
 }
 </style>
