@@ -2,6 +2,9 @@
   <div class="mt-2">
     {{ checkedDate }}
   </div>
+  <day-date
+    :date="checkedDate">
+  </day-date>
   <div class="mt-1">
     {{ checkedTime }}
   </div>
@@ -51,7 +54,6 @@ export default {
       if(strMonth.length<2){
         strMonth = '0' + strMonth;
       }
-
 
       this.checkedDate = `${year}-${strMonth}-${strDay}`;
       this.checkedTime = `${strHours}:${strMin}`;
