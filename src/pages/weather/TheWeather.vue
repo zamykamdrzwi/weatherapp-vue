@@ -27,7 +27,7 @@
           <button class="btn btn-primary mt-3">Pogoda!!</button>
         </form>
         <the-time
-          :time="time">
+          :time="weather.dt">
         </the-time>
         <weather-output v-if="formIsValid && !error"
           :weather="weather"
@@ -100,7 +100,7 @@ export default {
     },
     forecast() {
       return this.$store.state['forecast'];
-    }
+    },
   },
   methods: {
     putToSearch(value) {
