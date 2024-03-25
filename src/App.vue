@@ -1,6 +1,6 @@
 <template>
   <the-header></the-header>
-  <router-view class="mt-6"></router-view>
+  <router-view class="mt-6 mb-6"></router-view>
   <the-footer></the-footer>
 </template>
 

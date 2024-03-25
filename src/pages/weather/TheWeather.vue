@@ -7,7 +7,7 @@
           <div class="btn-group display-flex w-100">
             <input type="text" id="city" class="form-control shadow-none custom-input"
             :class="[error ? 'error' : '']" v-model="city" />
-            <button class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+            <button class="btn btn-primary dropdown-toggle dropdown-toggle-split custom-btn"
             data-bs-toggle="dropdown" type="button">
               <span class="visually-hidden">Toggle Dropdown</span>
             </button>
@@ -24,7 +24,7 @@
               <option value="imperial">Fahrenheit °F</option> 
             </select>
           </div>
-          <button class="btn btn-primary mt-3">Pogoda!!</button>
+          <button class="btn btn-primary mt-3 fw-bold custom-btn">Search!</button>
         </form>
         <weather-output v-if="formIsValid && !error"
           :weather="weather"
@@ -46,6 +46,11 @@
       </the-chart>
     </div>
     <div>
+      <div class="d-flex justify-content-center mt-3 bg-primary">
+        <div class="fw-bold">
+          Forecast
+        </div>
+      </div>
       <forecast-output 
         v-if="formIsValid && !error"
         :showUnit="showUnit">
@@ -238,6 +243,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/style/style.scss';
 .container {
   font-family: "Rubik", sans-serif;
   font-optical-sizing: auto;
@@ -254,5 +260,10 @@ export default {
 .custom-input {
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+}
+.custom-btn:hover {
+  background-color: $secondary;
+  color: $primary;
+  border: 1px solid $secondary;
 }
 </style>

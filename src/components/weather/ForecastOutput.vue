@@ -164,6 +164,6 @@ export default {
   background-color: yellow;
 }
 .custom-btn:hover, .active {
-  color: white !important;
+  color: #B9FA28 !important;
 }
 </style>
