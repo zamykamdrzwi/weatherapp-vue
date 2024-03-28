@@ -10,7 +10,7 @@ export default {
     }
 
     context.commit('setCurrentWeather', responseData);
-    console.log(responseData);
+    // console.log(responseData);
   },
   async takeWeatherCoords(context, payload) {
     const API = '19de70c141fa4749dd0305edb2cd82a9';

@@ -46,7 +46,9 @@
       </the-chart>
     </div>
     <div>
-      <high-charts></high-charts>
+      <high-charts
+        :showUnit="showUnit">
+      </high-charts>
     </div>
     <div>
       <div class="d-flex justify-content-center mt-3 bg-primary">
