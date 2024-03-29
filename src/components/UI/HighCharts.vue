@@ -130,10 +130,10 @@ export default {
           align: 'left',
           x: 80,
           verticalAlign: 'top',
-          y: 60,
+          y: 0,
           floating: true,
           backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            Highcharts.defaultOptions.legend.backgroundColor ||
             'rgba(255,255,255,0.25)'
         },
         series: [
@@ -143,7 +143,7 @@ export default {
           data: temp,
           tooltip: {
             valueSuffix: '°C'
-          }
+          },
         },
         {
           name: 'Rain',
@@ -173,6 +173,8 @@ export default {
 #container {
   width: 100%;
   height: 400px;
-  // min-width: 500px;
+}
+.highcharts-credits {
+  fill: yellow
 }
 </style>
