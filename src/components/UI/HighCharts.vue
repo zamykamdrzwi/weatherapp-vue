@@ -47,6 +47,26 @@ export default {
       });
       console.log(temp)
 
+      const rain = [];
+      const snow = [];
+      await this.getForecast.list.forEach(item => {
+        if(item.rain && item.snow) {
+          rain.push(parseFloat(item.rain['1h']) || parseFloat(item.rain['3h']));
+          snow.push(parseFloat(item.snow['1h']) || parseFloat(item.snow['3h']));
+        } if(item.rain || item.snow) {
+          if(item.rain) {
+            rain.push(parseFloat(item.rain['1h']) || parseFloat(item.rain['3h']));
+          } else {
+            snow.push(parseFloat(item.snow['1h']) || parseFloat(item.snow['3h']));
+          }
+        } else {
+          rain.push(0);
+          snow.push(0);
+        }
+      });
+      console.log(rain)
+      console.log(snow)
+
       await Highcharts.chart('container', {
         chart: {
           zoomType: 'xy',
@@ -70,8 +90,6 @@ export default {
               `;
             }
           },
-          // min: 0,
-          // max: 5,
           scrollbar: {
             enabled: true
           },
@@ -120,23 +138,29 @@ export default {
         },
         series: [
         {
-          name: 'Precipitation',
+          name: 'Temperature',
+          type: 'spline',
+          data: temp,
+          tooltip: {
+            valueSuffix: '°C'
+          }
+        },
+        {
+          name: 'Rain',
           type: 'column',
           yAxis: 1,
-          data: [27.6, 28.8, 21.7, 34.1, 29.0, 28.4, 45.6, 51.7, 39.0,
-            60.0, 28.6, 32.1],
+          data: rain,
           tooltip: {
             valueSuffix: ' mm'
           }
         }, 
         {
-          name: 'Temperature',
-          type: 'spline',
-          // data: [-13.6, -14.9, -5.8, -0.7, 3.1, 13.0, 14.5, 10.8, 5.8,
-          //   -0.7, -11.0, -16.4],
-          data: temp,
+          name: 'Snow',
+          type: 'column',
+          yAxis: 1,
+          data: snow,
           tooltip: {
-            valueSuffix: '°C'
+            valueSuffix: ' mm'
           }
         }]
       })
