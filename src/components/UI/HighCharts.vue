@@ -1,7 +1,8 @@
 <template>
+  <div class="d-flex justify-content-center m-2">
+    <div class="fw-bold fs-5">Forecast chart</div>
+  </div>
   <div id="container"></div>
-  <button class="btn btn-dark"
-  @click="initChart">aktywuj</button>
 </template>
 
 <script>
@@ -76,7 +77,7 @@ export default {
           }
         },
         title: {
-          text: 'Forecast chart'
+          text: ''
         },
         xAxis: [{
           categories: date,
@@ -87,6 +88,7 @@ export default {
                 ${this.value.substring(0, 5)}
                 </br>
                 ${this.value.substring(5, 30)}
+                </br>
               `;
             }
           },
@@ -98,16 +100,16 @@ export default {
           labels: {
             format: `{value}${unit}`,
             style: {
-              color: Highcharts.getOptions().colors[1]
+              color: '#7482F2'
             }
           },
           title: {
             text: 'Temperature',
             style: {
-              color: Highcharts.getOptions().colors[1]
+              color: '#7482F2'
             }
           }
-        }, 
+        },
         {
           title: {
             text: 'Precipitation',
@@ -123,15 +125,18 @@ export default {
           },
           opposite: true
         }],
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+            enableMouseTracking: false
+          }
+        },
         tooltip: {
           shared: true
         },
         legend: {
-          align: 'left',
-          x: 80,
-          verticalAlign: 'top',
-          y: 0,
-          floating: true,
           backgroundColor:
             Highcharts.defaultOptions.legend.backgroundColor ||
             'rgba(255,255,255,0.25)'
@@ -144,6 +149,7 @@ export default {
           tooltip: {
             valueSuffix: '°C'
           },
+          color: '#7482F2'
         },
         {
           name: 'Rain',
@@ -173,8 +179,5 @@ export default {
 #container {
   width: 100%;
   height: 400px;
-}
-.highcharts-credits {
-  fill: yellow
 }
 </style>
