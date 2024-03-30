@@ -125,14 +125,6 @@ export default {
           },
           opposite: true
         }],
-        plotOptions: {
-          line: {
-            dataLabels: {
-              enabled: true
-            },
-            enableMouseTracking: false
-          }
-        },
         tooltip: {
           shared: true
         },
@@ -140,6 +132,17 @@ export default {
           backgroundColor:
             Highcharts.defaultOptions.legend.backgroundColor ||
             'rgba(255,255,255,0.25)'
+        },
+        plotOptions: {
+          spline: {
+            dataLabels: {
+              text: 'dada',
+              enabled: true
+            },
+          },
+          column: {
+            
+          }
         },
         series: [
         {
