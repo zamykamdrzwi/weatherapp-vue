@@ -92,25 +92,6 @@ export default {
           scrollbar: {
             enabled: true
           },
-        },
-        {
-          categories: date,
-          crosshair: true,
-          opposite: true,
-          top: '0%',
-          labels: {
-            formatter: function() {
-              return `
-                ${this.value.substring(0, 5)}
-                </br>
-                ${this.value.substring(5, 30)}
-                </br>
-              `;
-            }
-          },
-          scrollbar: {
-            enabled: true
-          },
         }],
         yAxis: [{
           labels: {
@@ -125,6 +106,7 @@ export default {
               color: '#7482F2'
             }
           }
+          // xd
         },
         {
           title: {
