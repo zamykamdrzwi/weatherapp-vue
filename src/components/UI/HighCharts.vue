@@ -24,7 +24,7 @@ export default {
     createDay(item) {
       const date = new Date(item);
       const dayOfWeekIndex = date.getDay();
-      const daysOfWeek = ['Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+      const daysOfWeek = ['Sunday', 'Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       const dayOfWeekName = daysOfWeek[dayOfWeekIndex];
 
       return dayOfWeekName;
@@ -46,7 +46,6 @@ export default {
         const temporaryTemp = parseFloat(item.main.temp.toFixed(0));
         temp.push(temporaryTemp);
       });
-      console.log(temp)
 
       const rain = [];
       const snow = [];
@@ -65,8 +64,6 @@ export default {
           snow.push(0);
         }
       });
-      console.log(rain)
-      console.log(snow)
 
       await Highcharts.chart('container', {
         chart: {
@@ -82,6 +79,25 @@ export default {
         xAxis: [{
           categories: date,
           crosshair: true,
+          labels: {
+            formatter: function() {
+              return `
+                ${this.value.substring(0, 5)}
+                </br>
+                ${this.value.substring(5, 30)}
+                </br>
+              `;
+            }
+          },
+          scrollbar: {
+            enabled: true
+          },
+        },
+        {
+          categories: date,
+          crosshair: true,
+          opposite: true,
+          top: '0%',
           labels: {
             formatter: function() {
               return `
@@ -136,12 +152,10 @@ export default {
         plotOptions: {
           spline: {
             dataLabels: {
-              text: 'dada',
-              enabled: true
+              enabled: true,
             },
           },
           column: {
-            
           }
         },
         series: [
