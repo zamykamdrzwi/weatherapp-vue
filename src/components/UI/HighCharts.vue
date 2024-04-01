@@ -70,7 +70,7 @@ export default {
           zoomType: 'xy',
           scrollablePlotArea: {
             minWidth: 3500,
-            scrollPositionX: 1,
+            scrollPositionX: 0,
           }
         },
         title: {
@@ -88,10 +88,7 @@ export default {
                 </br>
               `;
             }
-          },
-          scrollbar: {
-            enabled: true
-          },
+          }
         }],
         yAxis: [{
           labels: {
@@ -106,7 +103,6 @@ export default {
               color: '#7482F2'
             }
           }
-          // xd
         },
         {
           title: {
