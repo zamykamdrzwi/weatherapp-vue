@@ -40,10 +40,10 @@
       </div>
     </div>
     <div>
-      <the-chart 
+      <!-- <the-chart 
         class="mt-4"
         :showUnit="showUnit">
-      </the-chart>
+      </the-chart> -->
     </div>
     <div>
       <high-charts
@@ -51,11 +51,6 @@
       </high-charts>
     </div>
     <div>
-      <div class="d-flex justify-content-center mt-3 bg-primary">
-        <div class="fw-bold">
-          Forecast
-        </div>
-      </div>
       <forecast-output 
         v-if="formIsValid && !error"
         :showUnit="showUnit">
@@ -72,14 +67,14 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import WeatherOutput from '../../components/weather/WeatherOutput.vue';
 import ForecastOutput from '@/components/weather/ForecastOutput.vue';
-import TheChart from '@/components/UI/TheChart.vue';
+// import TheChart from '@/components/UI/TheChart.vue';
 import HighCharts from '../../components/UI/HighCharts.vue';
 
 export default {
   components: {
     WeatherOutput,
     ForecastOutput,
-    TheChart,
+    // TheChart,
     HighCharts
   },
   data() {

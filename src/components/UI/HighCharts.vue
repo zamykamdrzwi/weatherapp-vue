@@ -56,8 +56,10 @@ export default {
         } if(item.rain || item.snow) {
           if(item.rain) {
             rain.push(parseFloat(item.rain['1h']) || parseFloat(item.rain['3h']));
+            snow.push(0);
           } else {
             snow.push(parseFloat(item.snow['1h']) || parseFloat(item.snow['3h']));
+            rain.push(0);
           }
         } else {
           rain.push(0);

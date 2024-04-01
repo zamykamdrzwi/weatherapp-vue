@@ -112,7 +112,7 @@ export default {
           'card',
           'custom-li',
           'm-auto',
-          'mt-2'
+          'mt-2',
         );
 
         newHour.classList.add('check-exist')
@@ -165,5 +165,10 @@ export default {
 }
 .custom-btn:hover, .active {
   color: #B9FA28 !important;
+}
+#listEl {
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: scroll;
 }
 </style>
