@@ -40,6 +40,15 @@
       </div>
     </div>
     <div>
+      <new-forecast
+        v-if="formIsValid && !error"
+        :showUnit="showUnit">
+      </new-forecast>
+      <div v-else>
+        <div class="text-danger">{{ error }}</div>
+      </div>
+    </div>
+    <div>
       <!-- <the-chart 
         class="mt-4"
         :showUnit="showUnit">
@@ -49,15 +58,6 @@
       <high-charts
         :showUnit="showUnit">
       </high-charts>
-    </div>
-    <div>
-      <new-forecast
-        v-if="formIsValid && !error"
-        :showUnit="showUnit">
-      </new-forecast>
-      <div v-else>
-        <div class="text-danger">{{ error }}</div>
-      </div>
     </div>
     <div>
       <forecast-output 
