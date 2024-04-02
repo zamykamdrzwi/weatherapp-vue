@@ -51,6 +51,15 @@
       </high-charts>
     </div>
     <div>
+      <new-forecast
+        v-if="formIsValid && !error"
+        :showUnit="showUnit">
+      </new-forecast>
+      <div v-else>
+        <div class="text-danger">{{ error }}</div>
+      </div>
+    </div>
+    <div>
       <forecast-output 
         v-if="formIsValid && !error"
         :showUnit="showUnit">
@@ -69,13 +78,15 @@ import WeatherOutput from '../../components/weather/WeatherOutput.vue';
 import ForecastOutput from '@/components/weather/ForecastOutput.vue';
 // import TheChart from '@/components/UI/TheChart.vue';
 import HighCharts from '../../components/UI/HighCharts.vue';
+import NewForecast from '../../components/weather/NewForecast.vue';
 
 export default {
   components: {
     WeatherOutput,
     ForecastOutput,
     // TheChart,
-    HighCharts
+    HighCharts,
+    NewForecast
   },
   data() {
     return {
