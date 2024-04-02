@@ -1,54 +1,8 @@
 <template>
-  <div class="custom-scroll mt-4 mb-3">
-    <div class="d-flex justify-content-start gap-3">
-      <div class="card">
-        <div class="card-header">dasdsada</div>
-        <div class="card-body">
-          <div class="card-text">Lorem ipsum dolor sit</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">dasdsada</div>
-        <div class="card-body">
-          <div class="card-text">Lorem ipsum dolor sit</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">dasdsada</div>
-        <div class="card-body">
-          <div class="card-text">Lorem ipsum dolor sit</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">dasdsada</div>
-        <div class="card-body">
-          <div class="card-text">Lorem ipsum dolor sit</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">dasdsada</div>
-        <div class="card-body">
-          <div class="card-text">Lorem ipsum dolor sit</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">dasdsada</div>
-        <div class="card-body">
-          <div class="card-text">Lorem ipsum dolor sit</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">dasdsada</div>
-        <div class="card-body">
-          <div class="card-text">Lorem ipsum dolor sit</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">dasdsada</div>
-        <div class="card-body">
-          <div class="card-text">Lorem ipsum dolor sit</div>
-        </div>
-      </div>
+  <div v-if="forecast && currentWeather"
+    class="custom-scroll mt-4 mb-3">
+    <div class="d-flex justify-content-start gap-3" 
+      id="parentEl">
     </div>
   </div>
 </template>
@@ -60,14 +14,48 @@ export default {
     forecast() {
       return this.$store.state['forecast'];
     },
+    currentWeather() {
+      return this.$store.state['currentWeather'];
+    }
+  },
+  watch: {
+    forecast() {
+      this.prepareData();
+    }
   },
   methods: {
-    prepareData() {
+    initDay(item) {
+      const date = new Date(item);
+      const dayOfWeekIndex = date.getDay();
+      const daysOfWeek = ['Sunday', 'Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const dayOfWeekName = daysOfWeek[dayOfWeekIndex];
 
+      return dayOfWeekName;
     },
-    async showForecast() {
-      await this.prepareData();
-      
+    prepareData() {
+      console.log(this.currentWeather);
+      const weatherObj = {
+        date: [],
+        hour: [],
+        temp: []
+      };
+      this.forecast.list.forEach(item => {
+        weatherObj.date.push(this.initDay(item.dt_txt.substring(0, 10)));
+        weatherObj.hour.push(item.dt_txt.substring(11, 16));
+        weatherObj.temp.push(item.main.temp);
+      });
+
+      this.showForecast(weatherObj);
+    },
+    showForecast(obj) {
+      console.log(obj);
+      const parentEl = document.querySelector('#parentEl');
+      console.log(`parentEl ${parentEl}`)
+      // const childrenEl = document.createElement('div');
+      // childrenEl.textContent = "dasda";
+      // console.log(childrenEl);
+      // console.log(parentEl)
+      // parentEl.appendChild(childrenEl);
     },
   },
 }
