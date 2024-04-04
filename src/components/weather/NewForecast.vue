@@ -1,6 +1,5 @@
 <template>
-  <div v-if="forecast && currentWeather"
-    class="custom-scroll mt-4 mb-3">
+  <div class="custom-scroll mt-4 mb-3">
     <div class="d-flex justify-content-start gap-3" 
       id="parentEl">
     </div>
@@ -10,6 +9,11 @@
 <script>
 export default {
   props: ['showUnit'],
+  data() {
+    return {
+      
+    };
+  },
   computed: {
     forecast() {
       return this.$store.state['forecast'];
@@ -33,31 +37,40 @@ export default {
       return dayOfWeekName;
     },
     prepareData() {
-      console.log(this.currentWeather);
-      const weatherObj = {
-        date: [],
-        hour: [],
-        temp: []
-      };
+      // console.log(this.currentWeather);
+      const weatherTab = [];
       this.forecast.list.forEach(item => {
-        weatherObj.date.push(this.initDay(item.dt_txt.substring(0, 10)));
-        weatherObj.hour.push(item.dt_txt.substring(11, 16));
-        weatherObj.temp.push(item.main.temp);
+        const weatherObj = {
+          date: this.initDay(item.dt_txt.substring(0, 10)),
+          hour: item.dt_txt.substring(11, 16),
+          temp: item.main.temp
+        }
+        weatherTab.push(weatherObj);
       });
 
-      this.showForecast(weatherObj);
+      this.showForecast(weatherTab);
     },
     showForecast(obj) {
       console.log(obj);
       const parentEl = document.querySelector('#parentEl');
-      console.log(`parentEl ${parentEl}`)
-      // const childrenEl = document.createElement('div');
-      // childrenEl.textContent = "dasda";
-      // console.log(childrenEl);
-      // console.log(parentEl)
-      // parentEl.appendChild(childrenEl);
+      obj.forEach(item => {
+        const childrenEl = document.createElement('div');
+        childrenEl.classList.add(
+          'card',
+          'custom-card',
+        )
+        childrenEl.innerHTML = `
+          <div class="card-body">
+            <div class="card-text">${item.temp}</div>
+          </div>
+        `;
+        parentEl.appendChild(childrenEl)
+      });
     },
   },
+  mounted() {
+    
+  }
 }
 </script>
 
@@ -67,7 +80,8 @@ export default {
   white-space: nowrap;
   overflow-x: auto;
 }
-.card {
-  min-width: 200px;
+.custom-card {
+  width: 200px !important;
+  background-color: yellow;
 }
 </style>
