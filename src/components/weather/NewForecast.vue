@@ -1,4 +1,9 @@
 <template>
+  <div class="d-flex justify-content-center mt-3 gap-3">
+    <the-button>Overview</the-button>
+    <the-button>Precipitaion</the-button>
+    <the-button>Wind</the-button>
+  </div>
   <div class="custom-scroll mt-4 mb-3">
     <div class="d-flex justify-content-start gap-3" 
       id="parentEl">
