@@ -1,8 +1,17 @@
 <template>
   <div class="d-flex justify-content-center mt-3 gap-3">
-    <the-button>Overview</the-button>
-    <the-button>Precipitaion</the-button>
-    <the-button>Wind</the-button>
+    <button class="btn btn-outline-dark border-0 rounded-0 custom-btn"
+      @click="activeBtn(0)" id="0">
+      Overview
+    </button>
+    <button class="btn btn-outline-dark border-0 rounded-0 custom-btn"
+      @click="activeBtn(1)" id="1">
+      Precipitaion
+    </button>
+    <button class="btn btn-outline-dark border-0 rounded-0 custom-btn"
+      @click="activeBtn(2)" id="2">
+      Wind
+    </button>
   </div>
   <div class="custom-scroll mt-4 mb-3">
     <div class="d-flex justify-content-start gap-3" 
@@ -29,7 +38,7 @@ export default {
   },
   watch: {
     forecast() {
-      this.prepareData();
+      this.activeBtn(0);
     }
   },
   methods: {
@@ -41,7 +50,22 @@ export default {
 
       return dayOfWeekName;
     },
-    prepareData() {
+    activeBtn(value) {
+      for(let i=0; i<=2; i++) {
+        const tempCheckEl = document.getElementById(i);
+        if(tempCheckEl.classList.contains('active')) {
+          tempCheckEl.classList.remove('active');
+        }
+      }
+      const active = document.getElementById(value);
+      active.classList.add('active');
+
+      this.prepareData(value);
+    },
+    prepareData(value) {
+      if(value===0) {
+        console.log('xd')
+      }
       // console.log(this.currentWeather);
       const weatherTab = [];
       this.forecast.list.forEach(item => {
@@ -61,18 +85,15 @@ export default {
       const parentEl = document.querySelector('#parentEl');
       obj.forEach(item => {
         const childrenEl = document.createElement('div');
-        childrenEl.classList.add(
-          
-        )
         childrenEl.innerHTML = `
-          <div class="card" style="width: 100px">
-            <div class="card-header d-flex justify-content-center">
+          <div class="card border-0 rounded-0 mb-3" style="width: 100px">
+            <div class="card-header d-flex justify-content-center border-0 rounded-0">
               <div>
                 ${item.hour}
               </div>
             </div>
             <div class="card-body">
-              <div class="d-flex w-100">
+              <div class="d-flex justify-content-center w-100">
                 <img src="${item.img}">
               </div>
               <div class="card-text d-flex justify-content-center">
@@ -81,7 +102,7 @@ export default {
                 </div>
               </div>
             </div>
-            <div class="card-footer d-flex justify-content-center">
+            <div class="card-footer d-flex justify-content-center border-0 rounded-0">
               <div>${item.date}</div>
             </div>
           </div>
