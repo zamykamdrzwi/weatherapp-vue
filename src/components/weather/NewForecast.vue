@@ -43,7 +43,8 @@ export default {
         const weatherObj = {
           date: this.initDay(item.dt_txt.substring(0, 10)),
           hour: item.dt_txt.substring(11, 16),
-          temp: item.main.temp
+          temp: item.main.temp,
+          img: `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`
         }
         weatherTab.push(weatherObj);
       });
@@ -56,12 +57,28 @@ export default {
       obj.forEach(item => {
         const childrenEl = document.createElement('div');
         childrenEl.classList.add(
-          'card',
-          'custom-card',
+          
         )
         childrenEl.innerHTML = `
-          <div class="card-body">
-            <div class="card-text">${item.temp}</div>
+          <div class="card" style="width: 100px">
+            <div class="card-header d-flex justify-content-center">
+              <div>
+                ${item.hour}
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="d-flex w-100">
+                <img src="${item.img}">
+              </div>
+              <div class="card-text d-flex justify-content-center">
+                <div>
+                  ${item.temp.toFixed(0)} ${this.showUnit}
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+              <div>${item.date}</div>
+            </div>
           </div>
         `;
         parentEl.appendChild(childrenEl)
@@ -79,9 +96,5 @@ export default {
   width: 100%;
   white-space: nowrap;
   overflow-x: auto;
-}
-.custom-card {
-  width: 200px !important;
-  background-color: yellow;
 }
 </style>
