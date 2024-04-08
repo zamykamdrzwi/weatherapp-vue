@@ -1,15 +1,15 @@
 <template>
   <div class="d-flex justify-content-center mt-3 gap-3">
     <button class="btn btn-outline-dark border-0 rounded-0 custom-btn"
-      @click="activeBtn(0)" id="0">
+      @click="activeBtnX(0)" id="0">
       Overview
     </button>
     <button class="btn btn-outline-dark border-0 rounded-0 custom-btn"
-      @click="activeBtn(1)" id="1">
+      @click="activeBtnX(1)" id="1">
       Precipitaion
     </button>
     <button class="btn btn-outline-dark border-0 rounded-0 custom-btn"
-      @click="activeBtn(2)" id="2">
+      @click="activeBtnX(2)" id="2">
       Wind
     </button>
   </div>
@@ -38,7 +38,7 @@ export default {
   },
   watch: {
     forecast() {
-      this.activeBtn(0);
+      this.activeBtnX(0);
     },
   },
   methods: {
@@ -61,7 +61,7 @@ export default {
       
       return windObj
     },
-    activeBtn(value) {
+    activeBtnX(value) {
       for(let i=0; i<=2; i++) {
         const tempCheckEl = document.getElementById(i);
         if(tempCheckEl.classList.contains('active')) {
