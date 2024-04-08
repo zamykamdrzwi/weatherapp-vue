@@ -63,9 +63,14 @@ export default {
       this.prepareData(value);
     },
     prepareData(value) {
-      if(value===0) {
-        console.log('xd')
-      }
+      const checkExist = document.querySelector('.card');
+      if(checkExist) {
+        const takeToRemove = document.querySelector('#parentEl');
+        while (takeToRemove.firstChild) {
+          takeToRemove.removeChild(takeToRemove.firstChild);
+        }
+      } 
+
       // console.log(this.currentWeather);
       const weatherTab = [];
       this.forecast.list.forEach(item => {
@@ -78,10 +83,11 @@ export default {
         weatherTab.push(weatherObj);
       });
 
-      this.showForecast(weatherTab);
+      this.showForecast(weatherTab, value);
     },
-    showForecast(obj) {
+    showForecast(obj, value) {
       console.log(obj);
+      console.log(value)
       const parentEl = document.querySelector('#parentEl');
       obj.forEach(item => {
         const childrenEl = document.createElement('div');
