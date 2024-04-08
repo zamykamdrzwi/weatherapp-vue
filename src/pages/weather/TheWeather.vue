@@ -42,17 +42,14 @@
     <div>
       <new-forecast
         v-if="formIsValid && !error"
-        :showUnit="showUnit">
+        :showUnit="showUnit"
+        :showUnit2="showUnit2">
       </new-forecast>
       <div v-else>
         <div class="text-danger">{{ error }}</div>
       </div>
     </div>
     <div>
-      <!-- <the-chart 
-        class="mt-4"
-        :showUnit="showUnit">
-      </the-chart> -->
     </div>
     <div>
       <high-charts
@@ -76,7 +73,6 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import WeatherOutput from '../../components/weather/WeatherOutput.vue';
 import ForecastOutput from '@/components/weather/ForecastOutput.vue';
-// import TheChart from '@/components/UI/TheChart.vue';
 import HighCharts from '../../components/UI/HighCharts.vue';
 import NewForecast from '../../components/weather/NewForecast.vue';
 
@@ -84,7 +80,6 @@ export default {
   components: {
     WeatherOutput,
     ForecastOutput,
-    // TheChart,
     HighCharts,
     NewForecast
   },
@@ -93,6 +88,7 @@ export default {
       city: 'Gdynia',
       units: 'metric',
       showUnit: '°C',
+      showUnit2: 'm/s',
       formIsValid: true,
       error: null,
       map: null,
@@ -143,9 +139,11 @@ export default {
         this.error = error.message || 'Something failed!';
       }
       if(params.units === 'metric') {
-        this.showUnit = '°C'
+        this.showUnit = '°C';
+        this.showUnit2 = 'm/s';
       } else {
-        this.showUnit = '°F'
+        this.showUnit = '°F';
+        this.showUnit2 = 'mph';
       }
       const cords = {
         lat: this.weather.coord.lat,
@@ -219,9 +217,11 @@ export default {
       }
 
       if(params.units === 'metric') {
-        this.showUnit = '°C'
+        this.showUnit = '°C';
+        this.showUnit2 = 'm/s';
       } else {
-        this.showUnit = '°F'
+        this.showUnit = '°F';
+        this.showUnit2 = 'mph';
       }
 
       this.city = this.weather.name;
