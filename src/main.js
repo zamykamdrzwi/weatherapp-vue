@@ -4,7 +4,8 @@ import { createApp } from 'vue';
 import TheButton from "./components/UI/TheButton.vue";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import fontawesome from './fontawesome.js'
+import fontawesome from './fontawesome.js';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import router from './router.js';
 import store from './store/index.js';
 import HighchartsVue from 'highcharts-vue';

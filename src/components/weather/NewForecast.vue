@@ -1,8 +1,5 @@
 <template>
   <div class="d-flex justify-content-center mt-3 gap-3">
-    <div>
-      <i class="bi bi-arrow-down"></i>
-    </div>
     <button class="btn btn-outline-dark border-0 rounded-0 custom-btn"
       @click="activeBtn(0)" id="0">
       Overview
@@ -55,9 +52,14 @@ export default {
     },
     windDeg(item) {
       const degrees = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+      const arrows = ['bi bi-arrow-up', 'bi bi-arrow-up-right', 'bi bi-arrow-right', 'bi bi-arrow-down-right', 'bi bi-arrow-down', 'bi bi-arrow-down-left', 'bi bi-arrow-left', 'bi bi-arrow-up-left'];
       const index = Math.round((item % 360) / 45);
+      const windObj = {
+        deg: degrees[index],
+        arrow: arrows[index]
+      }
       
-      return degrees[index];
+      return windObj
     },
     activeBtn(value) {
       for(let i=0; i<=2; i++) {
@@ -120,7 +122,8 @@ export default {
             <div class="card-text">
               <div class="d-flex justify-content-center">
                 <div class="fs-3 fw-bold">
-                  ${item.windDegree}
+                  <i class="${item.windDegree.arrow}"></i>
+                  ${item.windDegree.deg}
                 </div>
               </div>
               <div class="d-flex justify-content-center mt-3">

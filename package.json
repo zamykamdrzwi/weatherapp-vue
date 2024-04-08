@@ -16,6 +16,7 @@
     "@googlemaps/js-api-loader": "^1.16.6",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.2",
     "core-js": "^3.8.3",
     "highcharts-vue": "^2.0.1",
