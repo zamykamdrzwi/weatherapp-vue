@@ -51,7 +51,6 @@ export default {
       await this.getForecast.list.forEach(item => {
         humidity.push(parseFloat(item.main.humidity));
       });
-      console.log(humidity)
 
       const rain = [];
       const snow = [];

@@ -12,6 +12,10 @@
       @click="activeBtnX(2)" id="2">
       Wind
     </button>
+    <button class="btn btn-outline-dark border-0 rounded-0 custom-btn"
+      @click="activeBtnX(3)" id="3">
+      Humidity
+    </button>
   </div>
   <div class="custom-scroll mt-4 mb-3">
     <div class="d-flex justify-content-start gap-3" 
@@ -62,7 +66,7 @@ export default {
       return windObj
     },
     activeBtnX(value) {
-      for(let i=0; i<=2; i++) {
+      for(let i=0; i<=3; i++) {
         const tempCheckEl = document.getElementById(i);
         if(tempCheckEl.classList.contains('active')) {
           tempCheckEl.classList.remove('active');
@@ -133,7 +137,9 @@ export default {
               one: snowOne,
               three: snowThree
             }
-          }
+          },
+          humidity: item.main.humidity,
+          pressure: item.main.pressure
         }
         weatherTab.push(weatherObj);
       });
@@ -175,6 +181,28 @@ export default {
             </div>
           </div>
         `;
+        const pressure = `
+          <div class="card-body">
+            <div class="card-text">
+              <div class="d-flex justify-content-center">
+                <div>Humidity:</div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div class="fs-5 fw-bold">
+                  ${item.humidity} %
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div>Pressure:</div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div class="fw-bold">
+                  ${item.pressure} hPa
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
         let outputData;
         if((item.precipitation.rain.three !== 0 || item.precipitation.rain.one !==0)
           && (item.precipitation.snow.three !== 0 || item.precipitation.snow.one !== 0)) {
@@ -183,6 +211,7 @@ export default {
             outputData = `
               <div class="d-flex justify-content-center">
                 <div class="text-info fw-bold">
+                  <i class="bi bi-snow"></i>
                   Rain and Snow:
                 </div>
               </div>
@@ -200,6 +229,7 @@ export default {
             outputData = `
               <div class="d-flex justify-content-center">
                 <div class="text-info fw-bold">
+                  <i class="bi bi-droplet"></i>
                   Rain:
                 </div>
               </div>
@@ -216,6 +246,7 @@ export default {
             outputData = `
               <div class="d-flex justify-content-center">
                 <div class="text-info fw-bold">
+                  <i class="bi bi-droplet"></i>
                   Rain:
                 </div>
               </div>
@@ -232,6 +263,7 @@ export default {
             outputData = `
               <div class="d-flex justify-content-center">
                 <div class="text-info fw-bold">
+                  <i class="bi bi-snow"></i>
                   Snow:
                 </div>
               </div>
@@ -248,6 +280,7 @@ export default {
             outputData = `
               <div class="d-flex justify-content-center">
                 <div class="text-info fw-bold">
+                  <i class="bi bi-snow"></i>
                   Snow:
                 </div>
               </div>
@@ -255,7 +288,7 @@ export default {
                 <div>
                   <span class="text-info">
                     ${item.precipitation.snow.three}
-                  </span>   
+                  </span>
                   mm / 3h
                 </div>
               </div>
@@ -264,6 +297,7 @@ export default {
             outputData = `
               <div class="d-flex justify-content-center">
                 <div class="fw-bold">
+                  <i class="bi bi-droplet"></i>
                   Rain:
                 </div>
               </div>
@@ -291,6 +325,8 @@ export default {
           showData = precipitation;
         } else if(value === 2) {
           showData = wind;
+        } else if(value === 3) {
+          showData = pressure;
         } else {
           return;
         }
