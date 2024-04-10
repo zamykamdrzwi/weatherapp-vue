@@ -182,7 +182,7 @@ export default {
               + (parseFloat(item.precipitation.snow.one) || parseFloat(item.precipitation.snow.three)));
             outputData = `
               <div class="d-flex justify-content-center">
-                <div class="text-info">
+                <div class="text-info fw-bold">
                   Rain and Snow:
                 </div>
               </div>
@@ -199,7 +199,7 @@ export default {
           if(item.precipitation.rain.one !== 0) {
             outputData = `
               <div class="d-flex justify-content-center">
-                <div class="text-info">
+                <div class="text-info fw-bold">
                   Rain:
                 </div>
               </div>
@@ -215,7 +215,7 @@ export default {
           } else if (item.precipitation.rain.three !== 0) {
             outputData = `
               <div class="d-flex justify-content-center">
-                <div class="text-info">
+                <div class="text-info fw-bold">
                   Rain:
                 </div>
               </div>
@@ -231,7 +231,7 @@ export default {
           } else if (item.precipitation.snow.one !== 0) {
             outputData = `
               <div class="d-flex justify-content-center">
-                <div class="text-info">
+                <div class="text-info fw-bold">
                   Snow:
                 </div>
               </div>
@@ -247,7 +247,7 @@ export default {
           } else if (item.precipitation.snow.three !== 0) {
             outputData = `
               <div class="d-flex justify-content-center">
-                <div class="text-info">
+                <div class="text-info fw-bold">
                   Snow:
                 </div>
               </div>
@@ -263,7 +263,7 @@ export default {
           } else {
             outputData = `
               <div class="d-flex justify-content-center">
-                <div>
+                <div class="fw-bold">
                   Rain:
                 </div>
               </div>

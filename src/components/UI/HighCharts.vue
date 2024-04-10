@@ -47,6 +47,12 @@ export default {
         temp.push(temporaryTemp);
       });
 
+      const humidity = [];
+      await this.getForecast.list.forEach(item => {
+        humidity.push(parseFloat(item.main.humidity));
+      });
+      console.log(humidity)
+
       const rain = [];
       const snow = [];
       await this.getForecast.list.forEach(item => {
@@ -120,6 +126,21 @@ export default {
             }
           },
           opposite: true
+        },
+        {
+          title: {
+            text: 'Humidity',
+            style: {
+              color: '#90ed7d'
+            }
+          },
+          labels: {
+            format: '{value} %',
+            style: {
+              color: '#90ed7d'
+            }
+          },
+          opposite: true
         }],
         tooltip: {
           shared: true
@@ -165,6 +186,16 @@ export default {
           tooltip: {
             valueSuffix: ' mm'
           }
+        },
+        {
+          name: 'Humidity',
+          type: 'spline',
+          data: humidity,
+          yAxis: 2,
+          tooltip: {
+            valueSuffix: '%'
+          },
+          color: '#90ed7d'
         }]
       })
     },
