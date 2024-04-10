@@ -85,6 +85,37 @@ export default {
       // console.log(this.currentWeather);
       const weatherTab = [];
       this.forecast.list.forEach(item => {
+        let rainOne;
+        let rainThree
+        let snowOne;
+        let snowThree;
+        if (item.rain || item.snow) {
+          if (item.rain && item.rain['1h']) {
+            rainOne = parseFloat(item.rain['1h']);
+            rainThree = 0;
+          } else if (item.rain && item.rain['3h']) {
+            rainThree = parseFloat(item.rain['3h']);
+            rainOne = 0;
+          } else {
+            rainOne = 0;
+            rainThree = 0;
+          }
+          if (item.snow && item.snow['1h']) {
+            snowOne = parseFloat(item.snow['1h']);
+            snowThree = 0;
+          } else if (item.snow && item.snow['3h']) {
+            snowThree = parseFloat(item.snow['3h']);
+            snowOne = 0;
+          } else {
+            snowOne = 0;
+            snowThree = 0;
+          }
+        } else {
+          rainOne = 0;
+          rainThree = 0;
+          snowOne = 0;
+          snowThree = 0;
+        }
         const weatherObj = {
           date: this.initDay(item.dt_txt.substring(0, 10)),
           hour: item.dt_txt.substring(11, 16),
@@ -92,7 +123,17 @@ export default {
           img: `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`,
           windDegree: this.windDeg(item.wind.deg),
           windGust: item.wind.gust,
-          windSpeed: item.wind.speed 
+          windSpeed: item.wind.speed,
+          precipitation: {
+            rain: {
+              one: rainOne,
+              three: rainThree
+            },
+            snow: {
+              one: snowOne,
+              three: snowThree
+            }
+          }
         }
         weatherTab.push(weatherObj);
       });
@@ -134,11 +175,120 @@ export default {
             </div>
           </div>
         `;
+        let outputData;
+        if((item.precipitation.rain.three !== 0 || item.precipitation.rain.one !==0)
+          && (item.precipitation.snow.three !== 0 || item.precipitation.snow.one !== 0)) {
+            let tempData = ((parseFloat(item.precipitation.rain.one) || parseFloat(item.precipitation.rain.three))
+              + (parseFloat(item.precipitation.snow.one) || parseFloat(item.precipitation.snow.three)));
+            outputData = `
+              <div class="d-flex justify-content-center">
+                <div class="text-info">
+                  Rain and Snow:
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div>
+                  <span class="text-info">
+                    ${tempData}
+                  </span>   
+                  mm / 1h
+                </div>
+              </div>
+            `;
+        } else{
+          if(item.precipitation.rain.one !== 0) {
+            outputData = `
+              <div class="d-flex justify-content-center">
+                <div class="text-info">
+                  Rain:
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div>
+                  <span class="text-info">
+                    ${item.precipitation.rain.one}
+                  </span>   
+                  mm / 1h
+                </div>
+              </div>
+            `;
+          } else if (item.precipitation.rain.three !== 0) {
+            outputData = `
+              <div class="d-flex justify-content-center">
+                <div class="text-info">
+                  Rain:
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div>
+                  <span class="text-info">
+                    ${item.precipitation.rain.three}
+                  </span>   
+                  mm / 3h
+                </div>
+              </div>
+            `;
+          } else if (item.precipitation.snow.one !== 0) {
+            outputData = `
+              <div class="d-flex justify-content-center">
+                <div class="text-info">
+                  Snow:
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div>
+                  <span class="text-info">
+                    ${item.precipitation.snow.one}
+                  </span>   
+                  mm / 1h
+                </div>
+              </div>
+            `;
+          } else if (item.precipitation.snow.three !== 0) {
+            outputData = `
+              <div class="d-flex justify-content-center">
+                <div class="text-info">
+                  Snow:
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div>
+                  <span class="text-info">
+                    ${item.precipitation.snow.three}
+                  </span>   
+                  mm / 3h
+                </div>
+              </div>
+            `;
+          } else {
+            outputData = `
+              <div class="d-flex justify-content-center">
+                <div>
+                  Rain:
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div>
+                  ${item.precipitation.rain.three} mm / 3h
+                </div>
+              </div>
+            `;
+          }
+        }
+        const precipitation = `
+          <div class="card-body">
+            <div class="card-text">
+              <div>
+                ${outputData}
+              </div>
+            </div>
+          </div>
+        `;
 
         if(value === 0) {
           showData = overview;
         } else if(value === 1) {
-          showData = overview;
+          showData = precipitation;
         } else if(value === 2) {
           showData = wind;
         } else {
