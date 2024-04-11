@@ -154,7 +154,7 @@ export default {
       console.log(value)
       const parentEl = document.querySelector('#parentEl');
       var showData;
-      obj.forEach(item => {
+      obj.forEach((item, index) => {
         const overview = `
           <div class="card-body">
             <div class="d-flex justify-content-center w-100">
@@ -336,7 +336,10 @@ export default {
 
         const childrenEl = document.createElement('div');
         childrenEl.innerHTML = `
-          <div class="card border-0 rounded-0 mb-3" style="width: 100px">
+          <div class="card border-0 rounded-0 mb-3" 
+            style="width: 100px;"
+            onmouseover="this.style.backgroundColor = '#ccc';"
+            onmouseout="this.style.backgroundColor = '#fff';">
             <div class="card-header d-flex justify-content-center border-0 rounded-0">
               <div>
                 ${item.hour}
@@ -348,10 +351,18 @@ export default {
             </div>
           </div>
         `;
-        parentEl.appendChild(childrenEl)
+
+        parentEl.appendChild(childrenEl);
+        childrenEl.addEventListener('click', () => {
+          this.showDetails(index, obj);
+        });
       });
       this.activeForecast = value;
     },
+    showDetails(index, obj) {
+      console.log('dasda'+index);
+      console.log(obj)
+    }
   },
   mounted() {
     
@@ -364,5 +375,8 @@ export default {
   width: 100%;
   white-space: nowrap;
   overflow-x: auto;
+}
+.xd {
+  background-color: yellow;
 }
 </style>
