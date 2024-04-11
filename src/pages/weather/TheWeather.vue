@@ -56,7 +56,7 @@
         :showUnit="showUnit">
       </high-charts>
     </div>
-    <div>
+    <!-- <div>
       <forecast-output 
         v-if="formIsValid && !error"
         :showUnit="showUnit">
@@ -64,7 +64,7 @@
       <div v-else>
         <div class="text-danger">{{ error }}</div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -72,14 +72,14 @@
 /* global google */
 import { Loader } from '@googlemaps/js-api-loader';
 import WeatherOutput from '../../components/weather/WeatherOutput.vue';
-import ForecastOutput from '@/components/weather/ForecastOutput.vue';
+// import ForecastOutput from '@/components/weather/ForecastOutput.vue';
 import HighCharts from '../../components/UI/HighCharts.vue';
 import NewForecast from '../../components/weather/NewForecast.vue';
 
 export default {
   components: {
     WeatherOutput,
-    ForecastOutput,
+    // ForecastOutput,
     HighCharts,
     NewForecast
   },

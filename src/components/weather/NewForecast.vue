@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-center mt-3 gap-3">
+  <div class="d-flex justify-content-center mt-3 gap-3 flex-wrap">
     <button class="btn btn-outline-dark border-0 rounded-0 custom-btn"
       @click="activeBtnX(0)" id="0">
       Overview

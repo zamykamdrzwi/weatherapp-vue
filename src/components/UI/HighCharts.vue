@@ -127,6 +127,7 @@ export default {
           opposite: true
         },
         {
+          max: 100,
           title: {
             text: 'Humidity',
             style: {
@@ -175,7 +176,8 @@ export default {
           data: rain,
           tooltip: {
             valueSuffix: ' mm'
-          }
+          },
+          visible: false
         }, 
         {
           name: 'Snow',
@@ -184,7 +186,8 @@ export default {
           data: snow,
           tooltip: {
             valueSuffix: ' mm'
-          }
+          },
+          visible: false
         },
         {
           name: 'Humidity',
@@ -194,7 +197,8 @@ export default {
           tooltip: {
             valueSuffix: '%'
           },
-          color: '#90ed7d'
+          color: '#90ed7d',
+          visible: false
         }]
       })
     },
