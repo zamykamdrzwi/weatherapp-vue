@@ -18,6 +18,9 @@ export default {
   watch: {
     getForecast() {
       this.initChart();
+    },
+    showUnit() {
+      this.initChart();
     }
   },
   methods: {
@@ -165,7 +168,7 @@ export default {
           type: 'spline',
           data: temp,
           tooltip: {
-            valueSuffix: '°C'
+            valueSuffix: unit
           },
           color: '#7482F2'
         },

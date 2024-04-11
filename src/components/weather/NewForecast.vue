@@ -29,7 +29,7 @@ export default {
   props: ['showUnit', 'showUnit2'],
   data() {
     return {
-      
+      activeForecast: 0
     };
   },
   computed: {
@@ -42,8 +42,11 @@ export default {
   },
   watch: {
     forecast() {
-      this.activeBtnX(0);
+      this.activeBtnX(this.activeForecast);
     },
+    showUnit() {
+      this.activeBtnX(this.activeForecast);
+    }
   },
   methods: {
     initDay(item) {
@@ -347,6 +350,7 @@ export default {
         `;
         parentEl.appendChild(childrenEl)
       });
+      this.activeForecast = value;
     },
   },
   mounted() {
