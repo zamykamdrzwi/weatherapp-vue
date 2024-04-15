@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-outline-dark border-0 rounded-0 custom-btn"
+  <button  
     @click="activeBtn()">
     <slot></slot>
   </button>

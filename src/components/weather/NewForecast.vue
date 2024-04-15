@@ -60,7 +60,10 @@ export default {
     windDeg(item) {
       const degrees = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
       const arrows = ['bi bi-arrow-up', 'bi bi-arrow-up-right', 'bi bi-arrow-right', 'bi bi-arrow-down-right', 'bi bi-arrow-down', 'bi bi-arrow-down-left', 'bi bi-arrow-left', 'bi bi-arrow-up-left'];
-      const index = Math.round((item % 360) / 45);
+      let index = Math.round((item % 360) / 45);
+      if(index === 8){
+        index = index - 1;
+      }
       const windObj = {
         deg: degrees[index],
         arrow: arrows[index]
@@ -156,6 +159,7 @@ export default {
       var showData;
       obj.forEach((item, index) => {
         const overview = `
+          <div class="d-flex align-items-center" style="height:215px;">
           <div class="card-body">
             <div class="d-flex justify-content-center w-100">
               <img src="${item.img}">
@@ -166,8 +170,10 @@ export default {
               </div>
             </div>
           </div>
+          </div>
         `;
         const wind = `
+          <div class="d-flex align-items-center" style="height:215px;">
           <div class="card-body">
             <div class="card-text">
               <div class="d-flex justify-content-center">
@@ -182,6 +188,7 @@ export default {
                 </div>
               </div> 
             </div>
+          </div>
           </div>
         `;
         const pressure = `
@@ -223,7 +230,7 @@ export default {
                   <span class="text-info">
                     ${tempData}
                   </span>   
-                  mm / 1h
+                  mm/1h
                 </div>
               </div>
             `;
@@ -241,7 +248,7 @@ export default {
                   <span class="text-info">
                     ${item.precipitation.rain.one}
                   </span>   
-                  mm / 1h
+                  mm/1h
                 </div>
               </div>
             `;
@@ -258,7 +265,7 @@ export default {
                   <span class="text-info">
                     ${item.precipitation.rain.three}
                   </span>   
-                  mm / 3h
+                  mm/3h
                 </div>
               </div>
             `;
@@ -275,7 +282,7 @@ export default {
                   <span class="text-info">
                     ${item.precipitation.snow.one}
                   </span>   
-                  mm / 1h
+                  mm/1h
                 </div>
               </div>
             `;
@@ -292,7 +299,7 @@ export default {
                   <span class="text-info">
                     ${item.precipitation.snow.three}
                   </span>
-                  mm / 3h
+                  mm/3h
                 </div>
               </div>
             `;
@@ -306,14 +313,14 @@ export default {
               </div>
               <div class="d-flex justify-content-center">
                 <div>
-                  ${item.precipitation.rain.three} mm / 3h
+                  ${item.precipitation.rain.three} mm/3h
                 </div>
               </div>
             `;
           }
         }
         const precipitation = `
-          <div class="card-body">
+          <div class="card-body d-flex align-items-center">
             <div class="card-text">
               <div>
                 ${outputData}
@@ -337,7 +344,7 @@ export default {
         const childrenEl = document.createElement('div');
         childrenEl.innerHTML = `
           <div class="card border-0 rounded-0 mb-3" 
-            style="width: 100px;"
+            style="width: 120px; height: 215px"
             onmouseover="this.style.backgroundColor = '#ccc';"
             onmouseout="this.style.backgroundColor = '#fff';">
             <div class="card-header d-flex justify-content-center border-0 rounded-0">
@@ -345,7 +352,7 @@ export default {
                 ${item.hour}
               </div>
             </div>
-            ${showData}
+              ${showData}
             <div class="card-footer d-flex justify-content-center border-0 rounded-0">
               <div>${item.date}</div>
             </div>
