@@ -26,6 +26,7 @@
           </div>
           <button class="btn btn-primary mt-3 fw-bold custom-btn">Search!</button>
         </form>
+        <weather-details></weather-details>
         <weather-output v-if="formIsValid && !error"
           :weather="weather"
           :showUnit="showUnit">
@@ -75,13 +76,15 @@ import WeatherOutput from '../../components/weather/WeatherOutput.vue';
 // import ForecastOutput from '@/components/weather/ForecastOutput.vue';
 import HighCharts from '../../components/UI/HighCharts.vue';
 import NewForecast from '../../components/weather/NewForecast.vue';
+import WeatherDetails from '../../components/weather/WetherDetails.vue';
 
 export default {
   components: {
     WeatherOutput,
     // ForecastOutput,
     HighCharts,
-    NewForecast
+    NewForecast,
+    WeatherDetails
   },
   data() {
     return {
