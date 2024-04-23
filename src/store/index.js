@@ -11,7 +11,8 @@ const store = createStore({
       searchHistory: [],
       adress: null,
       forecast: null,
-      localObj: {}
+      localObj: {},
+      indexData: null
     };
   },
   mutations,

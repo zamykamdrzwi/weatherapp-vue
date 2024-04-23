@@ -29,5 +29,9 @@ export default {
   },
   setForecast(state, payload) {
     state.forecast = payload;
+  },
+  setIndex(state, payload) {
+    state.indexData = payload;
+    console.log(payload);
   }
 };

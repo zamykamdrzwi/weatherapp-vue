@@ -25,6 +25,7 @@
 </template>
 
 <script>
+
 export default {
   props: ['showUnit', 'showUnit2'],
   data() {
@@ -149,12 +150,12 @@ export default {
         }
         weatherTab.push(weatherObj);
       });
-      console.log(this.showUnit2)
+      // console.log(this.showUnit2)
       this.showForecast(weatherTab, value);
     },
     showForecast(obj, value) {
-      console.log(obj);
-      console.log(value)
+      // console.log(obj);
+      // console.log(value)
       const parentEl = document.querySelector('#parentEl');
       var showData;
       obj.forEach((item, index) => {
@@ -367,8 +368,11 @@ export default {
       this.activeForecast = value;
     },
     showDetails(index, obj) {
-      console.log('dasda'+index);
-      console.log(obj)
+      const payload = {
+        index: index,
+        data: obj[index]
+      }
+      this.$store.commit('setIndex', payload);
     }
   },
   mounted() {

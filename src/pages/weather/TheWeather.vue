@@ -7,7 +7,7 @@
           <div class="btn-group display-flex w-100">
             <input type="text" id="city" class="form-control shadow-none custom-input"
             :class="[error ? 'error' : '']" v-model="city" />
-            <button class="btn btn-primary dropdown-toggle dropdown-toggle-split custom-btn"
+            <button class="btn btn-dark dropdown-toggle dropdown-toggle-split"
             data-bs-toggle="dropdown" type="button">
               <span class="visually-hidden">Toggle Dropdown</span>
             </button>
@@ -24,7 +24,7 @@
               <option value="imperial">Fahrenheit °F</option> 
             </select>
           </div>
-          <button class="btn btn-primary mt-3 fw-bold custom-btn">Search!</button>
+          <button class="btn btn-dark mt-3 fw-bold">Search!</button>
         </form>
         <weather-details></weather-details>
         <weather-output v-if="formIsValid && !error"

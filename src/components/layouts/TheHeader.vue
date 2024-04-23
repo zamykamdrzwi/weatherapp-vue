@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-md bg-light fixed-top">
     <div class="container">
       <router-link to="/weather" class="nav-link fw-bold">
-        <span class="text-secondary">WeatherApp</span>
+        <span>WeatherApp</span>
       </router-link>
       <button type="button"
       class="navbar-toggler shadow-none border-0"
