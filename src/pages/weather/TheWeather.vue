@@ -26,7 +26,10 @@
           </div>
           <button class="btn btn-dark mt-3 fw-bold">Search!</button>
         </form>
-        <weather-details></weather-details>
+        <weather-details
+          :showUnit="showUnit"
+          :showUnit2="showUnit2">
+        </weather-details>
         <weather-output v-if="formIsValid && !error"
           :weather="weather"
           :showUnit="showUnit">

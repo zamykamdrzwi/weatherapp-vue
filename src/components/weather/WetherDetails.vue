@@ -1,9 +1,10 @@
 <template>
-  <div id="detailsContainer"></div>
+  <div id="detailsContainer" class="mt-3"></div>
 </template>
 
 <script>
 export default {
+  props: ['showUnit', 'showUnit2'],
   computed: {
     details() {
       return this.$store.state['indexData'];
@@ -13,7 +14,7 @@ export default {
     },
     currentWeather() {
       return this.$store.state['currentWeather'];
-    }
+    },
   },
   watch: {
     details() {
@@ -26,9 +27,17 @@ export default {
   methods: {
     initDetails(data) {
       if(data === 'current') {
-        // console.log('dziala');
-        // console.log(this.currentWeather);
-        this.showDetails(this.currentWeather);
+        const currentObj = {
+          data: {
+            date: `Weather now`,
+            hour: '',
+            img: `https://openweathermap.org/img/wn/${this.currentWeather.weather[0].icon}.png`,
+            temp: this.currentWeather.main.temp,
+          },
+          city: `${this.currentWeather.name}, ${this.currentWeather.sys.country}`,
+        }
+        console.log(this.currentWeather);
+        this.showDetails(currentObj);
         return;
       }
       console.log(data);
@@ -41,8 +50,15 @@ export default {
     },
     showDetails(data) {
       const parentEl = document.querySelector('#detailsContainer');
-      console.log(parentEl);
-      parentEl.innerHTML = 'dsadas'
+      parentEl.innerHTML = `
+        <div>${data.data.date} ${data.data.hour}</div>
+        <div class="fw-bold fs-3">${data.city}</div>
+        <div class="fs-1 mb-2 d-flex align-items-center">
+          <img src="${data.data.img}" alt="Icon">
+          <span>&nbsp;</span>
+          ${data.data.temp.toFixed(0)}${this.showUnit}
+        </div>
+      `;
       console.log(data);
     }
   },
