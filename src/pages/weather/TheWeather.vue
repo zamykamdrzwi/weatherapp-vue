@@ -26,12 +26,20 @@
           </div>
           <button class="btn btn-dark mt-3 fw-bold">Search!</button>
         </form>
-        <weather-details v-if="formIsValid && !error"
-          :showUnit="showUnit"
-          :showUnit2="showUnit2">
-        </weather-details>
-        <div v-else>
-          <div class="text-danger">{{ error }}</div>
+        <div class="row">
+          <div class="col-md-6">
+            <weather-details v-if="formIsValid && !error"
+              :showUnit="showUnit"
+              :showUnit2="showUnit2">
+            </weather-details>
+            <div v-else>
+              <div class="text-danger">{{ error }}</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <days-forecast v-if="formIsValid && !error">
+            </days-forecast>
+          </div>
         </div>
 <!--        <weather-output v-if="formIsValid && !error"-->
 <!--          :weather="weather"-->
@@ -77,6 +85,7 @@
 
 <script>
 /* global google */
+import DaysForecast from '../../components/weather/DaysForecast.vue';
 import { Loader } from '@googlemaps/js-api-loader';
 // import WeatherOutput from '../../components/weather/WeatherOutput.vue';
 // import ForecastOutput from '@/components/weather/ForecastOutput.vue';
@@ -88,6 +97,7 @@ export default {
   components: {
     // WeatherOutput,
     // ForecastOutput,
+    DaysForecast,
     HighCharts,
     NewForecast,
     WeatherDetails
