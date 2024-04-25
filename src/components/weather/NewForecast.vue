@@ -146,7 +146,10 @@ export default {
             }
           },
           humidity: item.main.humidity,
-          pressure: item.main.pressure
+          pressure: item.main.pressure,
+          feel: item.main.feels_like,
+          desc: item.weather[0].description,
+          visibility: item.visibility/1000,
         }
         weatherTab.push(weatherObj);
       });

@@ -26,17 +26,20 @@
           </div>
           <button class="btn btn-dark mt-3 fw-bold">Search!</button>
         </form>
-        <weather-details
+        <weather-details v-if="formIsValid && !error"
           :showUnit="showUnit"
           :showUnit2="showUnit2">
         </weather-details>
-        <weather-output v-if="formIsValid && !error"
-          :weather="weather"
-          :showUnit="showUnit">
-        </weather-output>
         <div v-else>
           <div class="text-danger">{{ error }}</div>
         </div>
+<!--        <weather-output v-if="formIsValid && !error"-->
+<!--          :weather="weather"-->
+<!--          :showUnit="showUnit">-->
+<!--        </weather-output>-->
+<!--        <div v-else>-->
+<!--          <div class="text-danger">{{ error }}</div>-->
+<!--        </div>-->
       </div>
       <div class="col-lg-6">
         <label for="map" class="mb-2 fw-bold">Choose place from map!</label>
@@ -49,9 +52,9 @@
         :showUnit="showUnit"
         :showUnit2="showUnit2">
       </new-forecast>
-      <div v-else>
-        <div class="text-danger">{{ error }}</div>
-      </div>
+<!--      <div v-else>-->
+<!--        <div class="text-danger">{{ error }}</div>-->
+<!--      </div>-->
     </div>
     <div>
     </div>
@@ -75,7 +78,7 @@
 <script>
 /* global google */
 import { Loader } from '@googlemaps/js-api-loader';
-import WeatherOutput from '../../components/weather/WeatherOutput.vue';
+// import WeatherOutput from '../../components/weather/WeatherOutput.vue';
 // import ForecastOutput from '@/components/weather/ForecastOutput.vue';
 import HighCharts from '../../components/UI/HighCharts.vue';
 import NewForecast from '../../components/weather/NewForecast.vue';
@@ -83,7 +86,7 @@ import WeatherDetails from '../../components/weather/WetherDetails.vue';
 
 export default {
   components: {
-    WeatherOutput,
+    // WeatherOutput,
     // ForecastOutput,
     HighCharts,
     NewForecast,
