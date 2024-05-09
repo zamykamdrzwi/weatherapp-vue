@@ -93,7 +93,6 @@ export default {
         }
       } 
 
-      // console.log(this.currentWeather);
       const weatherTab = [];
       this.forecast.list.forEach(item => {
         let rainOne;
@@ -153,12 +152,9 @@ export default {
         }
         weatherTab.push(weatherObj);
       });
-      // console.log(this.showUnit2)
       this.showForecast(weatherTab, value);
     },
     showForecast(obj, value) {
-      // console.log(obj);
-      // console.log(value)
       const parentEl = document.querySelector('#parentEl');
       var showData;
       obj.forEach((item, index) => {

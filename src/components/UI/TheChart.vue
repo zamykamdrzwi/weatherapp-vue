@@ -27,7 +27,6 @@ export default {
   },
   methods: {
     async weatherChart() {
-      // console.log(this.getForecast)
       const unit = this.showUnit;
       const forecast = [];
       // const rainOrSnow = [];

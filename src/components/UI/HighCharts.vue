@@ -33,7 +33,6 @@ export default {
       return dayOfWeekName;
     },
     async initChart() {
-      console.log(this.getForecast)
       const unit = this.showUnit;
 
       const date = [];

@@ -73,11 +73,9 @@ export default {
           },
           city: `${this.currentWeather.name}, ${this.currentWeather.sys.country}`,
         }
-        console.log(this.currentWeather);
         this.showDetails(currentObj);
         return;
       }
-      console.log(data);
       const detailsObj = {
         data: data.data,
         index: data.index,
@@ -131,7 +129,6 @@ export default {
           `;
         }
       }
-      console.log(data);
     }
   },
 }

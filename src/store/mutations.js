@@ -32,6 +32,5 @@ export default {
   },
   setIndex(state, payload) {
     state.indexData = payload;
-    console.log(payload);
   }
 };

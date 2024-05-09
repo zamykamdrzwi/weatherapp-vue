@@ -10,7 +10,6 @@ export default {
   props: ['id'],
   methods: {
     activeBtn() {
-      console.log(this.id)
     }
   }
 }

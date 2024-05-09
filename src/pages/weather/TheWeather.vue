@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <days-forecast v-if="formIsValid && !error">
+            <days-forecast v-if="formIsValid && !error" :showUnit="showUnit">
             </days-forecast>
           </div>
         </div>
