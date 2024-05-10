@@ -1,12 +1,5 @@
 <template>
   <div id="par"></div>
-<!--  <div class="card rounded-0 border-1">-->
-<!--    <div class="card-body row">-->
-<!--      <span class="me-3 col-5">Mon, May 09</span>-->
-<!--      <span class="col-3">dasdsada</span>-->
-<!--      <span class="col-3">{{ showUnit }}</span>-->
-<!--    </div>-->
-<!--  </div>-->
 </template>
 
 <script>
@@ -66,7 +59,7 @@ export default {
       const minTempTab = [];
       const maxTempTab = [];
 
-      data.list.forEach((item) => {
+      data.list.forEach((item, index) => {
         let tempIntMin = parseInt(item.main.temp_min);
         let tempIntMax = parseInt(item.main.temp_max);
         minTempSum += tempIntMin;
@@ -78,7 +71,7 @@ export default {
           daysTab[daysIndex] = this.initDay(item.dt_txt.substring(0, 10));
           monthTab[daysIndex] = this.initMonth(item.dt_txt.substring(5, 7));
           dateTab[daysIndex] = item.dt_txt.substring(8, 10);
-          imgTab[daysIndex] = `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
+          imgTab[daysIndex] = `https://openweathermap.org/img/wn/${data.list[index+3].weather[0].icon}.png`;
 
           let averageMin = minTempSum / tempIndex;
           let averageMax = maxTempSum / tempIndex;
@@ -96,13 +89,26 @@ export default {
         date: dateTab,
         tempMin: minTempTab,
         tempMax: maxTempTab,
+        img: imgTab
       }
+
+      console.log(dataObj)
       this.showData(dataObj);
     },
     showData(data) {
       const parentEl = document.querySelector('#par');
-      data.days.forEach((item) => {
-        const example = `<div>${item}</div>`;
+      data.days.forEach((item, index) => {
+        const example = `
+          <div class="card rounded-0 border-1">
+            <div class="card-body row">
+              <span class="me-3 col-4">${item}, ${data.month[index]} ${data.date[index]}</span>
+              <span class="col-3">
+                <img src="${data.img[index]}" alt="icon">
+              </span>
+              <span class="col-4">${data.tempMin[index]} / ${data.tempMax[index]} ${this.showUnit}</span>
+            </div>
+          </div>
+        `;
         const childrenEl = document.createElement('div');
         childrenEl.innerHTML = example;
         parentEl.appendChild(childrenEl);
