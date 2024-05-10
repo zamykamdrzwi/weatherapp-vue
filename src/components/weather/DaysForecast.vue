@@ -1,11 +1,12 @@
 <template>
-  <div class="card rounded-0 border-1">
-    <div class="card-body row">
-      <span class="me-3 col-5">Mon, May 09</span>
-      <span class="col-3">dasdsada</span>
-      <span class="col-3">{{ showUnit }}</span>
-    </div>
-  </div>
+  <div id="par"></div>
+<!--  <div class="card rounded-0 border-1">-->
+<!--    <div class="card-body row">-->
+<!--      <span class="me-3 col-5">Mon, May 09</span>-->
+<!--      <span class="col-3">dasdsada</span>-->
+<!--      <span class="col-3">{{ showUnit }}</span>-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <script>
@@ -40,6 +41,14 @@ export default {
       return month;
     },
     prepareData(data) {
+      const checkExist = document.querySelector('.card');
+      if(checkExist) {
+        const takeToRemove = document.querySelector('#par');
+        while (takeToRemove.firstChild) {
+          takeToRemove.removeChild(takeToRemove.firstChild);
+        }
+      }
+
       console.log(data);
       let date0 = data.list[0].dt_txt.substring(8, 10);
       let daysIndex = 0;
@@ -49,25 +58,55 @@ export default {
       monthTab[0] = this.initMonth(data.list[0].dt_txt.substring(5, 7));
       const dateTab = [];
       dateTab[0] = data.list[0].dt_txt.substring(8, 10);
+      const imgTab = [];
+      imgTab[0] = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`;
+      let tempIndex = 0;
+      let minTempSum = 0;
+      let maxTempSum = 0;
+      const minTempTab = [];
+      const maxTempTab = [];
+
       data.list.forEach((item) => {
+        let tempIntMin = parseInt(item.main.temp_min);
+        let tempIntMax = parseInt(item.main.temp_max);
+        minTempSum += tempIntMin;
+        maxTempSum += tempIntMax;
+        tempIndex++;
         if(item.dt_txt.substring(8, 10) != date0){
           date0 = item.dt_txt.substring(8, 10);
           daysIndex++;
           daysTab[daysIndex] = this.initDay(item.dt_txt.substring(0, 10));
           monthTab[daysIndex] = this.initMonth(item.dt_txt.substring(5, 7));
           dateTab[daysIndex] = item.dt_txt.substring(8, 10);
+          imgTab[daysIndex] = `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
+
+          let averageMin = minTempSum / tempIndex;
+          let averageMax = maxTempSum / tempIndex;
+          minTempTab.push(averageMin.toFixed(0));
+          maxTempTab.push(averageMax.toFixed(0));
+          minTempSum = 0;
+          maxTempSum = 0;
+          tempIndex = 0;
         }
       });
 
       const dataObj = {
         days: daysTab,
         month: monthTab,
-        date: dateTab
+        date: dateTab,
+        tempMin: minTempTab,
+        tempMax: maxTempTab,
       }
       this.showData(dataObj);
     },
     showData(data) {
-      console.log(data);
+      const parentEl = document.querySelector('#par');
+      data.days.forEach((item) => {
+        const example = `<div>${item}</div>`;
+        const childrenEl = document.createElement('div');
+        childrenEl.innerHTML = example;
+        parentEl.appendChild(childrenEl);
+      });
     }
   }
 }
