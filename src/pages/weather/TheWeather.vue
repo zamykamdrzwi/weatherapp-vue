@@ -26,8 +26,8 @@
           </div>
           <button class="btn btn-dark mt-3 fw-bold">Search!</button>
         </form>
-        <div class="row">
-          <div class="col-md-6">
+        <div class="row flex-wrap" id="mediaEl">
+          <div class="col-xl-6">
             <weather-details v-if="formIsValid && !error"
               :showUnit="showUnit"
               :showUnit2="showUnit2">
@@ -36,7 +36,7 @@
               <div class="text-danger">{{ error }}</div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-xl-6">
             <days-forecast v-if="formIsValid && !error" :showUnit="showUnit">
             </days-forecast>
           </div>

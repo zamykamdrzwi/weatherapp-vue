@@ -1,5 +1,5 @@
 <template>
-  <div id="par"></div>
+  <div id="par" class="mt-2 custom-scroll"></div>
 </template>
 
 <script>
@@ -53,18 +53,18 @@ export default {
       dateTab[0] = data.list[0].dt_txt.substring(8, 10);
       const imgTab = [];
       imgTab[0] = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}.png`;
-      let tempIndex = 0;
-      let minTempSum = 0;
-      let maxTempSum = 0;
       const minTempTab = [];
       const maxTempTab = [];
+      const minTab = [];
+      const maxTab = [];
+      minTab[0] = parseInt(data.list[0].main.temp_min);
+      maxTab[0] = parseInt(data.list[0].main.temp_max);
 
       data.list.forEach((item, index) => {
         let tempIntMin = parseInt(item.main.temp_min);
         let tempIntMax = parseInt(item.main.temp_max);
-        minTempSum += tempIntMin;
-        maxTempSum += tempIntMax;
-        tempIndex++;
+        minTempTab.push(tempIntMin);
+        maxTempTab.push(tempIntMax);
         if(item.dt_txt.substring(8, 10) != date0){
           date0 = item.dt_txt.substring(8, 10);
           daysIndex++;
@@ -73,22 +73,22 @@ export default {
           dateTab[daysIndex] = item.dt_txt.substring(8, 10);
           imgTab[daysIndex] = `https://openweathermap.org/img/wn/${data.list[index+3].weather[0].icon}.png`;
 
-          let averageMin = minTempSum / tempIndex;
-          let averageMax = maxTempSum / tempIndex;
-          minTempTab.push(averageMin.toFixed(0));
-          maxTempTab.push(averageMax.toFixed(0));
-          minTempSum = 0;
-          maxTempSum = 0;
-          tempIndex = 0;
+          const min = Math.min.apply(null, minTempTab);
+          const max = Math.max.apply(null, maxTempTab);
+          minTab.push(min);
+          maxTab.push(max);
         }
       });
+
+      console.log(minTab);
+      console.log(maxTab);
 
       const dataObj = {
         days: daysTab,
         month: monthTab,
         date: dateTab,
-        tempMin: minTempTab,
-        tempMax: maxTempTab,
+        tempMin: minTab,
+        tempMax: maxTab,
         img: imgTab
       }
 
@@ -99,13 +99,17 @@ export default {
       const parentEl = document.querySelector('#par');
       data.days.forEach((item, index) => {
         const example = `
-          <div class="card rounded-0 border-1">
+          <div class="card rounded-0 border-1 mb-2">
             <div class="card-body row">
-              <span class="me-3 col-4">${item}, ${data.month[index]} ${data.date[index]}</span>
-              <span class="col-3">
-                <img src="${data.img[index]}" alt="icon">
+              <span class="col-5 me-3 d-flex align-items-center">
+                ${item}, ${data.month[index]} ${data.date[index]}
               </span>
-              <span class="col-4">${data.tempMin[index]} / ${data.tempMax[index]} ${this.showUnit}</span>
+              <span class="col-6 d-flex align-items-center justify-content-end">
+                <img src="${data.img[index]}" alt="icon">
+                <div class="m-auto">
+                  ${data.tempMin[index]} / ${data.tempMax[index]} ${this.showUnit}
+                </div>
+               </span>
             </div>
           </div>
         `;
@@ -120,6 +124,11 @@ export default {
 
 <style scoped lang="scss">
 .card {
-  min-width: 261px;
+  //min-width: 261px;
+}
+.custom-scroll {
+  height: 250px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 </style>
