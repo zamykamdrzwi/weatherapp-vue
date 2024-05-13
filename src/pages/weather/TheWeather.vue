@@ -24,7 +24,7 @@
               <option value="imperial">Fahrenheit °F</option> 
             </select>
           </div>
-          <button class="btn btn-dark mt-3 fw-bold">Search!</button>
+          <button class="btn btn-dark mt-3 fw-bold me-2">Search!</button>
         </form>
         <div class="row flex-wrap" id="mediaEl">
           <div class="col-xl-6">

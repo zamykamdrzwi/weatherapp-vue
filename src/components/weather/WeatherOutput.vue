@@ -30,7 +30,7 @@ export default {
     snow() {
       return this.weather.snow['1h'] || this.weather.snow['3h'];
     }
-  }
+  },
 }
 </script>
 

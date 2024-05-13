@@ -13,6 +13,9 @@ export default {
   watch: {
     forecast() {
       this.prepareData(this.forecast);
+    },
+    showUnit() {
+      this.prepareData(this.forecast);
     }
   },
   methods: {
@@ -42,7 +45,6 @@ export default {
         }
       }
 
-      console.log(data);
       let date0 = data.list[0].dt_txt.substring(8, 10);
       let daysIndex = 0;
       const daysTab = [];
@@ -80,9 +82,6 @@ export default {
         }
       });
 
-      console.log(minTab);
-      console.log(maxTab);
-
       const dataObj = {
         days: daysTab,
         month: monthTab,
@@ -92,7 +91,6 @@ export default {
         img: imgTab
       }
 
-      console.log(dataObj)
       this.showData(dataObj);
     },
     showData(data) {

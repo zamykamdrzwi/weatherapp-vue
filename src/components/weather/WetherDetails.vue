@@ -22,6 +22,9 @@ export default {
     },
     currentWeather() {
       this.initDetails('current');
+    },
+    showUnit() {
+      this.initDetails('current');
     }
   },
   methods: {
