@@ -344,7 +344,7 @@ export default {
         const childrenEl = document.createElement('div');
         childrenEl.innerHTML = `
           <div class="card border-0 rounded-0 mb-3" 
-            style="width: 120px; height: 215px"
+            style="width: 120px; height: 215px; cursor: pointer;"
             onmouseover="this.style.backgroundColor = '#ccc';"
             onmouseout="this.style.backgroundColor = '#fff';">
             <div class="card-header d-flex justify-content-center border-0 rounded-0">
@@ -385,8 +385,5 @@ export default {
   width: 100%;
   white-space: nowrap;
   overflow-x: auto;
-}
-.xd {
-  background-color: yellow;
 }
 </style>

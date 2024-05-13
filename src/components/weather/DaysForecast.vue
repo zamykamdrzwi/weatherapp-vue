@@ -32,9 +32,7 @@ export default {
         item = item.charAt(1)
       }
       const monthsInYear = ['example', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      const month = monthsInYear[item];
-
-      return month;
+      return monthsInYear[item];
     },
     prepareData(data) {
       const checkExist = document.querySelector('.card');
@@ -97,7 +95,10 @@ export default {
       const parentEl = document.querySelector('#par');
       data.days.forEach((item, index) => {
         const example = `
-          <div class="card rounded-0 border-1 mb-2">
+          <div class="card rounded-0 border-1 mb-2"
+          style="cursor: pointer;"
+            onmouseover="this.style.backgroundColor = '#ccc';"
+            onmouseout="this.style.backgroundColor = '#fff';">
             <div class="card-body row">
               <span class="col-5 me-3 d-flex align-items-center">
                 ${item}, ${data.month[index]} ${data.date[index]}
